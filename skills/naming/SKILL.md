@@ -97,13 +97,28 @@ Load [availability.md](availability.md) for the full checking workflow and decis
 
 #### Required actions for EVERY semifinalist:
 
-**1. Competitor conflict search FIRST (WebSearch):**
+**1. Prior-art / competitor conflict search FIRST (this is the most-skipped, most-fatal step):**
 
-Do this before any domain or platform checks — it's the most common kill reason, and running availability checks on names that will be killed by competitors wastes effort.
+Do this before any domain or platform checks — it's the most common kill reason, and running
+availability checks on names that will be killed by prior art wastes effort. **A free npm/GitHub
+handle does NOT mean the name is clear** — a registry handle being available says nothing about a
+prominent product already using that word. You must look at *what exists*, not just *whether the
+slug is taken*.
 
-- Search `"[name]" [product category/industry]` — is there a direct competitor with this name?
-- Search `"[name]" software` or `"[name]" app` as a broader check
-- If a direct competitor exists in the same space, the name is **dead**. Drop it immediately — do not check domains or platforms.
+Run ALL THREE, for every semifinalist:
+
+- **GitHub by name, by stars:** `https://api.github.com/search/repositories?q=[name]+in:name&sort=stars` — read the TOP result's description + star count. A high-star repo using this exact name is a prior-art hit even if the org slug is free.
+- **Web search:** `"[name]" [product category]`, `"[name]" software`, `"[name]" company`, and `"[name]" AI` — look for an established company/product/tool, not just a dictionary definition.
+- **Trademark (availability.md §5):** quick USPTO/EUIPO pass for anything headed to market.
+
+**Kill / demote rules:**
+- **Same category (direct competitor) → DEAD.** Drop immediately.
+- **Same namespace + same audience → DEAD for OSS/dev tooling**, even if it's not a direct competitor. Example: naming a brand-genesis dev tool "Kiln" when `Kiln-AI/Kiln` (4.9k★, an AI-systems tool) exists — different product, but the same audience installs both from the same ecosystem, so search/discovery is permanently poisoned. For a tool whose entire point is a discovery funnel, this is disqualifying.
+- **Large brand in an unrelated industry → usable but penalized.** You'll fight for search forever (see availability.md §21). Weigh it; don't pick it by default.
+
+> **Anti-pattern (learned 2026-06-16, Kiln dogfood):** checking `npm`/`gh-user`/`dns` for a free
+> handle and calling the name "available" WITHOUT the three prior-art searches above. The handle was
+> free; the name was owned by a 4.9k★ AI tool in the same audience. Handle-availability ≠ prior-art-clear.
 
 **2. Domain and platform checks for survivors:**
 
