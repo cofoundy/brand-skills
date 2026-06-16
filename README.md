@@ -12,9 +12,11 @@ Claude Code, Cursor, Windsurf, or any agent.**
 npx skills add cofoundy/brand-skills
 ```
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-black.svg)](./LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/cofoundy/brand-skills?style=flat&color=black&logo=github)](https://github.com/cofoundy/brand-skills)
-<!-- skills.sh install-count badge — re-add once the repo is indexed (after first `npx skills add` installs generate telemetry):
+[![License: MIT](https://img.shields.io/badge/license-MIT-black.svg)](./LICENSE)
+[![Agent Skills](https://img.shields.io/badge/agent%20skills-15-black.svg)](#skills)
+[![Stars](https://badgen.net/github/stars/cofoundy/brand-skills?color=black)](https://github.com/cofoundy/brand-skills/stargazers)
+[![Install](https://img.shields.io/badge/npx%20skills%20add-cofoundy%2Fbrand--skills-black.svg?logo=npm&logoColor=white)](https://github.com/cofoundy/brand-skills)
+<!-- Re-add once skills.sh indexes the repo (post-install telemetry):
 [![skills.sh](https://skills.sh/b/cofoundy/brand-skills)](https://skills.sh/cofoundy/brand-skills) -->
 
 
