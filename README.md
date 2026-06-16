@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./assets/logo.png" alt="brand skills" width="460" />
+</p>
+
 # Brand Skills — Branding, Naming & Brand Identity for AI Agents
 
 **Open-source [Agent Skills](https://agentskills.io) for brand building: brand strategy, brand
