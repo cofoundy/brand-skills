@@ -1,0 +1,20 @@
+{
+  "name": "kiln",
+  "version": "0.1.0",
+  "description": "The open brand-genesis engine — naming, identity, voice, and brand book, from Claude Code.",
+  "author": {
+    "name": "Cofoundy SAC",
+    "url": "https://cofoundy.dev"
+  },
+  "homepage": "https://github.com/cofoundy/kiln",
+  "repository": "https://github.com/cofoundy/kiln",
+  "license": "MIT",
+  "keywords": [
+    "branding",
+    "brand-strategy",
+    "naming",
+    "brand-identity",
+    "agent-skills",
+    "claude-code"
+  ]
+}
