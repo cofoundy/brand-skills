@@ -13,7 +13,10 @@ npx skills add cofoundy/brand-skills
 ```
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-black.svg)](./LICENSE)
-[![skills.sh](https://skills.sh/b/cofoundy/brand-skills)](https://skills.sh/cofoundy/brand-skills)
+[![GitHub stars](https://img.shields.io/github/stars/cofoundy/brand-skills?style=flat&color=black&logo=github)](https://github.com/cofoundy/brand-skills)
+<!-- skills.sh install-count badge — re-add once the repo is indexed (after first `npx skills add` installs generate telemetry):
+[![skills.sh](https://skills.sh/b/cofoundy/brand-skills)](https://skills.sh/cofoundy/brand-skills) -->
+
 
 > **Brand genesis, end to end — and it persists.** Describe your product; these skills name it,
 > decide its brand architecture, define its identity and voice, brief the logo, and produce a brand
