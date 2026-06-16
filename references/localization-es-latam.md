@@ -1,6 +1,6 @@
 # Localization — Spanish / LATAM
 
-Kiln is built bilingual. When the brand, audience, or market is Spanish-speaking (especially Latin
+Brand Skills is built bilingual. When the brand, audience, or market is Spanish-speaking (especially Latin
 America), every skill should apply the rules below alongside its core framework. The `naming` skill
 in particular must screen candidates against Spanish phonetics and regional connotation, not just
 English.
@@ -52,5 +52,5 @@ English can be unusable in Spanish (and vice versa).
 
 Public availability checks (whois/npm/GitHub) are necessary but **not** a trademark clearance. For
 LATAM commercial use, a name must also clear the national IP registry (e.g. **INDECOPI** in Peru).
-Kiln does not file marks; treat registry clearance as a separate step before committing a name to
+Brand Skills does not file marks; treat registry clearance as a separate step before committing a name to
 market.

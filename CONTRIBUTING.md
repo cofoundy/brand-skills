@@ -1,7 +1,7 @@
-# Contributing to Kiln
+# Contributing to Brand Skills
 
-Kiln is the open brand-genesis engine. Contributions — new skills, better frameworks, more
-languages — are welcome.
+Brand Skills (`cofoundy/brand-skills`) is an open brand-genesis suite. Contributions — new skills,
+better frameworks, more languages — are welcome.
 
 ## Ground rules
 

@@ -4,7 +4,7 @@
 
 ## Context
 
-Kiln is an open-source brand-genesis suite. Its maintainer (Cofoundy) also operates a private,
+Brand Skills (cofoundy/brand-skills) is an open-source brand-genesis suite. Its maintainer (Cofoundy) also operates a private,
 integrated product stack (domain provisioning, trademark filing, a visual-design agent fleet,
 branded PDF generation). Two decisions had to be locked before the repo could be public.
 
@@ -32,4 +32,4 @@ branded PDF generation). Two decisions had to be locked before the repo could be
 
 - Contributors must never add private-infra dependencies to this repo.
 - Skills stay self-contained; availability checks use public tools only (whois, npm, GitHub).
-- Broader positioning is revisited once enough real-world brands have been built with Kiln.
+- Broader positioning is revisited once enough real-world brands have been built with Brand Skills.

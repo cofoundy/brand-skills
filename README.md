@@ -1,44 +1,43 @@
-<div align="center">
+# Brand Skills — Branding, Naming & Brand Identity for AI Agents
 
-# 🔥 Kiln
+**Open-source [Agent Skills](https://agentskills.io) for brand building: brand strategy, brand
+naming, brand identity, voice, positioning, messaging, brand guidelines, and rebranding — from
+Claude Code, Cursor, Windsurf, or any agent.**
 
-**The open brand-genesis engine — naming → identity → voice → brand book, from Claude Code.**
-
-A from-zero brand creation suite for AI-native founders, agencies, and devs. Describe your
-product; Kiln names it, decides its architecture, defines its identity and voice, briefs the
-logo, and codifies a brand book — as Agent Skills that work in Claude Code, Cursor, Windsurf,
-and any agent that supports the [Agent Skills spec](https://agentskills.io).
-
-`npx skills add cofoundy/kiln`
+```bash
+npx skills add cofoundy/brand-skills
+```
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-black.svg)](./LICENSE)
 
-</div>
+> **Brand genesis, end to end.** Describe your product; these skills name it, decide its brand
+> architecture, define its identity and voice, brief the logo, and produce a brand book — as
+> composable skills your AI agent loads on demand.
 
 ---
 
-## Why Kiln
+## Why these brand skills
 
-A name is the first irreversible decision a startup makes — and most AI naming output is slop
-(thesaurus mashups, `-ify` suffixes, dead metaphors). Kiln is **metaphor-driven**: it finds the
-compressed story first, then the name. Then it carries that story through the entire identity —
-architecture, voice, messaging, positioning, and a brand book — so the brand is coherent end to
-end, not a logo glued to a tagline.
+A startup's name is its first irreversible decision, and most AI naming output is slop — thesaurus
+mashups, `-ify` suffixes, dead metaphors. The **naming** skill here is metaphor-driven: it finds the
+compressed story first, then the name, then carries that story through the whole identity —
+architecture, voice, messaging, positioning, and a brand book — so the brand is coherent end to end,
+not a logo glued to a tagline.
 
-Built by [Cofoundy](https://cofoundy.dev). We use it to birth our own products; it's open so you
-can birth yours.
+Maintained by [Cofoundy](https://cofoundy.dev). We use these skills to build our own products; they're
+open so you can build yours.
 
 ## Install
 
 ```bash
 # Any agent that supports the Agent Skills spec
-npx skills add cofoundy/kiln
+npx skills add cofoundy/brand-skills
 
 # Or as a Claude Code plugin marketplace
-/plugin marketplace add cofoundy/kiln
+/plugin marketplace add cofoundy/brand-skills
 ```
 
-## The pipeline
+## The brand-genesis pipeline
 
 ```
         ┌─────────────┐
@@ -61,7 +60,7 @@ npx skills add cofoundy/kiln
 
 | Skill | What it does |
 |-------|--------------|
-| **naming** | Metaphor-driven naming. 30–50 candidates → filtered → availability-checked → vetted finalists. Avoids AI slop. |
+| **naming** | Metaphor-driven brand & product naming. 30–50 candidates → filtered → prior-art + availability checked → vetted finalists. Avoids AI slop. |
 | **brand-context** | Foundation. Captures the brand DNA every other skill reads first. |
 | **brand-strategy** | Brand heart, archetype, values — the full strategy report. |
 | **brand-architecture** | Standalone vs sub-brand vs branded-house vs house-of-brands. Naming systems for product families. |
@@ -76,19 +75,18 @@ npx skills add cofoundy/kiln
 | **brand-audit** | Brand health across 6 dimensions. |
 | **rebranding** | Audit → reposition → relaunch an existing brand. |
 
-> **Scope:** Kiln v0 is brand *genesis* — it does not do go-to-market (ads, channels, growth).
-> That's intentional; a brand should exist before it's marketed.
+> **Scope:** v0 is brand *genesis* — creating a brand. It does not do go-to-market (ads, channels,
+> growth). That's intentional; a brand should exist before it's marketed.
 
-## Localization
+## Spanish / LATAM localization
 
-Kiln ships first-class **Spanish / LATAM** support — Spanish phonosemantics, cultural-connotation
-screening, and regional conventions — alongside English. See
+First-class **Spanish / LATAM** support — Spanish phonosemantics, cultural-connotation screening
+across major markets, and regional conventions — alongside English. See
 [`references/localization-es-latam.md`](./references/localization-es-latam.md).
 
 ## Credits
 
-Kiln stands on two excellent MIT-licensed projects, absorbed and extended here. See
-[`NOTICE`](./NOTICE):
+Built on two excellent MIT-licensed projects, absorbed and extended here (see [`NOTICE`](./NOTICE)):
 
 - Naming engine adapted from [**glacierphonk/naming**](https://github.com/glacierphonk/naming).
 - Brand-genesis skills adapted from [**arnabbagxd/Brand-building-skills**](https://github.com/arnabbagxd/Brand-building-skills).
@@ -96,3 +94,9 @@ Kiln stands on two excellent MIT-licensed projects, absorbed and extended here. 
 ## License
 
 [MIT](./LICENSE) © Cofoundy SAC. Upstream copyrights preserved in [`NOTICE`](./NOTICE).
+
+---
+
+<sub>Keywords: brand skills · branding · brand strategy · brand naming · brand identity · brand
+voice · brand positioning · brand guidelines · rebranding · agent skills · Claude Code · AI
+branding · brand book generator.</sub>

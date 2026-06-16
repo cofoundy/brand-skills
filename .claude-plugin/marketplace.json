@@ -1,18 +1,18 @@
 {
-  "name": "kiln",
+  "name": "brand-skills",
   "owner": {
     "name": "Cofoundy SAC",
     "url": "https://cofoundy.dev"
   },
   "metadata": {
-    "description": "The open brand-genesis engine — naming, identity, voice, and brand book, from Claude Code",
+    "description": "The open brand-genesis engine \u2014 naming, identity, voice, and brand book, from Claude Code",
     "version": "0.1.0",
-    "repository": "https://github.com/cofoundy/kiln"
+    "repository": "https://github.com/cofoundy/brand-skills"
   },
   "plugins": [
     {
-      "name": "kiln",
-      "description": "14 brand-genesis skills: metaphor-driven naming, brand context, strategy, architecture, identity, voice, story, positioning, messaging, target audience, competitor branding, guidelines (brand book), audit, and rebranding. Brand creation only — no go-to-market.",
+      "name": "brand-skills",
+      "description": "14 brand-genesis skills: metaphor-driven naming, brand context, strategy, architecture, identity, voice, story, positioning, messaging, target audience, competitor branding, guidelines (brand book), audit, and rebranding. Brand creation only \u2014 no go-to-market.",
       "source": "./",
       "strict": false,
       "skills": [
