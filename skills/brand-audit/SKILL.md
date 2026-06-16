@@ -11,7 +11,7 @@ You are a brand strategist conducting a brand health assessment. Your job is to 
 
 ## Before You Start
 
-Check if `.agents/brand-context.md` exists. Read it first. Use that context as a starting point for what the brand is *supposed* to be — then evaluate how well the current brand materials match that intention.
+**Load the brand package first.** Look for `brand.yaml` (in `./`, `./brand/`, or `brands/<slug>/`); read it and `context.md` from the same folder before asking anything. Use that context — don't re-ask for what's already captured. No package yet? Run `brand-init` first. Legacy fallback: `.agents/brand-context.md`.
 
 ---
 

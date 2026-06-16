@@ -10,9 +10,10 @@ npx skills add cofoundy/brand-skills
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-black.svg)](./LICENSE)
 
-> **Brand genesis, end to end.** Describe your product; these skills name it, decide its brand
-> architecture, define its identity and voice, brief the logo, and produce a brand book — as
-> composable skills your AI agent loads on demand.
+> **Brand genesis, end to end — and it persists.** Describe your product; these skills name it,
+> decide its brand architecture, define its identity and voice, brief the logo, and produce a brand
+> book. Output isn't ephemeral chat: every brand becomes a **structured, queryable package**
+> (`brand.yaml` + folder) that all skills read and write into, indexed by a portfolio registry.
 
 ---
 
@@ -60,6 +61,7 @@ npx skills add cofoundy/brand-skills
 
 | Skill | What it does |
 |-------|--------------|
+| **brand-init** | Scaffolds a structured brand **package** (`brand.yaml` + folder) and registers it in a portfolio. The persistence layer every other skill reads/writes. |
 | **naming** | Metaphor-driven brand & product naming. 30–50 candidates → filtered → prior-art + availability checked → vetted finalists. Avoids AI slop. |
 | **brand-context** | Foundation. Captures the brand DNA every other skill reads first. |
 | **brand-strategy** | Brand heart, archetype, values — the full strategy report. |
@@ -77,6 +79,21 @@ npx skills add cofoundy/brand-skills
 
 > **Scope:** v0 is brand *genesis* — creating a brand. It does not do go-to-market (ads, channels,
 > growth). That's intentional; a brand should exist before it's marketed.
+
+## Brand packages & registry (the persistence layer)
+
+Unlike chat-only brand tools, Brand Skills writes a **brand package** — a versioned, queryable folder:
+
+```
+brand/
+  brand.yaml          # manifest: name, one-liner, status, archetype, which artifacts exist
+  context.md  naming.md  strategy.md  identity.md  voice.md  guidelines.md  …
+  assets/
+```
+
+Managing several brands? A `brands/registry.yaml` indexes them so any agent can answer "what brands
+do we have / where / what's the one-liner" in one query. The registry is a **SSOT file, not agent
+memory** — git-tracked and shareable. Full spec: [`references/brand-package-spec.md`](./references/brand-package-spec.md).
 
 ## Spanish / LATAM localization
 

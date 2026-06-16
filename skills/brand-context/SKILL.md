@@ -11,7 +11,10 @@ You are establishing the brand context foundation. This file is read by every ot
 
 ## Before You Start
 
-Check if `.agents/brand-context.md` already exists (or `.claude/brand-context.md`). If it does, read it and ask the user what they'd like to update. If it doesn't exist, collect the information below.
+**Find or create the brand package.** Look for `brand.yaml` (in `./`, `./brand/`, or `brands/<slug>/`).
+- Package exists → read `brand.yaml` + `context.md`; ask the user what to update.
+- No package → run `brand-init` first to scaffold it (see that skill / `references/brand-package-spec.md`), then collect the information below.
+- Legacy `.agents/brand-context.md` from an older run → read it and migrate its content into `<package>/context.md`.
 
 ---
 
@@ -53,7 +56,7 @@ Ask for the following. If the user has already provided it in conversation, don'
 
 ## Output
 
-Once you have the information, create a file at `.agents/brand-context.md` with this structure:
+Write the brand DNA to **`<package>/context.md`** (inside the brand package — NOT `.agents/`), with this structure:
 
 ```markdown
 # Brand Context
@@ -89,7 +92,11 @@ Once you have the information, create a file at `.agents/brand-context.md` with 
 - **Key Metrics**: [metrics]
 ```
 
-Tell the user the file has been saved and that all other brand skills will now use this context automatically. Remind them they can update it at any time by running this skill again.
+Then update the manifest so the package stays queryable:
+- Flip `artifacts.context: true` in `brand.yaml`, and refresh `updated`.
+- If `brand.yaml`'s `one_liner`, `name`, `industry`, or `archetype` are still blank and you now know them, fill them in (e.g. `bash ${CLAUDE_SKILL_DIR}/../brand-init/scripts/brand.sh set --package <package> --key one_liner --value "…"`).
+
+Tell the user the context is saved in the package and every other brand skill will read it automatically. They can update it anytime by running this skill again.
 
 ---
 

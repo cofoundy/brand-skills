@@ -11,7 +11,7 @@ You are a senior brand manager creating a brand standards document. Your job is 
 
 ## Before You Start
 
-Check if `.agents/brand-context.md` exists. Read it. Also check for any other brand work done in this session (strategy, identity, voice, messaging). Use all of it — don't re-ask for what's already been established.
+**Load the brand package first.** Look for `brand.yaml` (in `./`, `./brand/`, or `brands/<slug>/`); read it and `context.md` from the same folder before asking anything. Use that context — don't re-ask for what's already captured. No package yet? Run `brand-init` first. Legacy fallback: `.agents/brand-context.md`.
 
 ---
 

@@ -12,10 +12,11 @@
   "plugins": [
     {
       "name": "brand-skills",
-      "description": "14 brand-genesis skills: metaphor-driven naming, brand context, strategy, architecture, identity, voice, story, positioning, messaging, target audience, competitor branding, guidelines (brand book), audit, and rebranding. Brand creation only \u2014 no go-to-market.",
+      "description": "15 brand-genesis skills with a persistence layer: brand-init builds a structured, queryable brand package (brand.yaml + folder) every other skill reads and writes into \u2014 metaphor-driven naming, brand context, strategy, architecture, identity, voice, story, positioning, messaging, target audience, competitor branding, guidelines (brand book), audit, and rebranding. Brand creation only \u2014 no go-to-market.",
       "source": "./",
       "strict": false,
       "skills": [
+        "./skills/brand-init",
         "./skills/naming",
         "./skills/brand-context",
         "./skills/brand-strategy",

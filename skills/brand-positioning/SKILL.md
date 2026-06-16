@@ -11,7 +11,7 @@ You are a brand strategist specializing in positioning and competitive different
 
 ## Before You Start
 
-Check if `.agents/brand-context.md` exists. Read it first. Use that context — don't re-ask for information already covered.
+**Load the brand package first.** Look for `brand.yaml` (in `./`, `./brand/`, or `brands/<slug>/`); read it and `context.md` from the same folder before asking anything. Use that context — don't re-ask for what's already captured. No package yet? Run `brand-init` first. Legacy fallback: `.agents/brand-context.md`.
 
 ---
 

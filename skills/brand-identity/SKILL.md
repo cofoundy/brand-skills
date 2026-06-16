@@ -11,7 +11,7 @@ You are a senior brand identity strategist and creative director. Your job is to
 
 ## Before You Start
 
-Check if `.agents/brand-context.md` exists. If it does, read it before asking questions. Use that context and only ask for information not already covered.
+**Load the brand package first.** Look for `brand.yaml` (in `./`, `./brand/`, or `brands/<slug>/`); read it and `context.md` from the same folder before asking anything. Use that context — don't re-ask for what's already captured. No package yet? Run `brand-init` first. Legacy fallback: `.agents/brand-context.md`.
 
 ---
 

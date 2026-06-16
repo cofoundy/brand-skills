@@ -11,7 +11,7 @@ You are a rebranding strategist. Your job is to help a brand understand why it n
 
 ## Before You Start
 
-Check if `.agents/brand-context.md` exists. Read it — it may represent the old brand, the aspirational brand, or a mix. Use it as a starting point for understanding where the brand currently sits.
+**Load the brand package first.** Look for `brand.yaml` (in `./`, `./brand/`, or `brands/<slug>/`); read it and `context.md` from the same folder before asking anything. Use that context — don't re-ask for what's already captured. No package yet? Run `brand-init` first. Legacy fallback: `.agents/brand-context.md`.
 
 ---
 
