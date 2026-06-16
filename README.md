@@ -4,9 +4,9 @@
 
 # Brand Skills — Branding, Naming & Brand Identity for AI Agents
 
-**Open-source [Agent Skills](https://agentskills.io) for brand building: brand strategy, brand
-naming, brand identity, voice, positioning, messaging, brand guidelines, and rebranding — from
-Claude Code, Cursor, Windsurf, or any agent.**
+**Turn an idea into a real brand — name, identity, voice, and a brand book — without leaving your AI
+agent.** 15 open-source [Agent Skills](https://agentskills.io) for founders, indie hackers, and
+agencies building AI-native — in Claude Code, Cursor, Windsurf, and 70+ agents.
 
 ```bash
 npx skills add cofoundy/brand-skills
@@ -20,23 +20,27 @@ npx skills add cofoundy/brand-skills
 [![skills.sh](https://skills.sh/b/cofoundy/brand-skills)](https://skills.sh/cofoundy/brand-skills) -->
 
 
-> **Brand genesis, end to end — and it persists.** Describe your product; these skills name it,
-> decide its brand architecture, define its identity and voice, brief the logo, and produce a brand
-> book. Output isn't ephemeral chat: every brand becomes a **structured, queryable package**
-> (`brand.yaml` + folder) that all skills read and write into, indexed by a portfolio registry.
-
 ---
 
-## Why these brand skills
+## What you get
 
-A startup's name is its first irreversible decision, and most AI naming output is slop — thesaurus
-mashups, `-ify` suffixes, dead metaphors. The **naming** skill here is metaphor-driven: it finds the
-compressed story first, then the name, then carries that story through the whole identity —
-architecture, voice, messaging, positioning, and a brand book — so the brand is coherent end to end,
-not a logo glued to a tagline.
+Describe your product in a sentence. Your agent runs the skills and hands back a complete, coherent brand:
 
-Maintained by [Cofoundy](https://cofoundy.dev). We use these skills to build our own products; they're
-open so you can build yours.
+- **A name that isn't AI slop** — metaphor-driven, prior-art + domain checked, not a thesaurus mashup.
+- **A full identity** — positioning, architecture, visual brief, voice, and messaging that all tell the *same* story.
+- **A brand book** — guidelines ready to hand to a designer or a teammate.
+- **Saved, not lost** — every brand is a reusable `brand.yaml` package, not a chat you'll never find again.
+
+One command, minutes — instead of a blank page, a freelancer brief, and three weeks.
+
+## Why it's different
+
+Most "AI branding" hands you a logo with a tagline glued on. **A logo isn't a brand.** Brand Skills
+finds the *story* first, then carries it through every decision — so naming, voice, and messaging
+line up instead of fighting each other.
+
+Built and dogfooded by [Cofoundy](https://cofoundy.dev) on our own products. MIT-licensed — the whole
+pipeline is yours to read, fork, and ship.
 
 ## Install
 
