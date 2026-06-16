@@ -9,6 +9,7 @@ npx skills add cofoundy/brand-skills
 ```
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-black.svg)](./LICENSE)
+[![skills.sh](https://skills.sh/b/cofoundy/brand-skills)](https://skills.sh/cofoundy/brand-skills)
 
 > **Brand genesis, end to end — and it persists.** Describe your product; these skills name it,
 > decide its brand architecture, define its identity and voice, brief the logo, and produce a brand
@@ -30,13 +31,37 @@ open so you can build yours.
 
 ## Install
 
-```bash
-# Any agent that supports the Agent Skills spec
-npx skills add cofoundy/brand-skills
+### A — `npx skills` (recommended; works in 70+ agents)
 
-# Or as a Claude Code plugin marketplace
-/plugin marketplace add cofoundy/brand-skills
+Cross-agent install via the [open Agent Skills CLI](https://github.com/vercel-labs/skills) — Claude
+Code, Cursor, Codex, OpenCode, and more:
+
+```bash
+npx skills add cofoundy/brand-skills           # all skills
+npx skills add cofoundy/brand-skills -s naming # one skill
+npx skills add cofoundy/brand-skills -g        # install globally (user dir) instead of per-project
 ```
+
+Installs to your agent's skills dir (e.g. `.claude/skills/…`, `.cursor/…`). Try one without
+installing: `npx skills use cofoundy/brand-skills -s naming | claude`.
+
+### B — Claude Code plugin
+
+```bash
+/plugin marketplace add cofoundy/brand-skills
+/plugin install brand-skills@brand-skills
+```
+
+### C — Local (before/without a remote)
+
+```bash
+npx skills add ./path/to/brand-skills          # or:
+/plugin marketplace add /abs/path/to/brand-skills
+```
+
+**Troubleshooting:** if skills don't trigger after install, reload your agent (Claude Code:
+`/reload-plugins` or restart). Each skill is self-contained markdown — `cat .claude/skills/naming/SKILL.md`
+to confirm it landed.
 
 ## The brand-genesis pipeline
 
