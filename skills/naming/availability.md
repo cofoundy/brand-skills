@@ -18,6 +18,8 @@ Before any platform-specific checks:
 
 If there's a direct competitor with the same name in the same space, the name is dead. Move on.
 
+- **AI-namespace land-grab gate** (2024+): also search `"[name]" AI` and the exact name on GitHub by stars (`api.github.com/search/repositories?q=[name]+in:name&sort=stars`). Nearly every short, evocable word in the memory / knowledge / trust / agent space has already been taken by an AI startup or a high-star AI repo (Signet-AI, vellum-ai, Onyx, Tome, Engram…). A free npm/GitHub *handle* does NOT mean the name is clear — check what *exists*, not just whether the slug is free.
+
 If there's a large brand in a different industry (e.g., "Apex" is a hundred things), you CAN still use the name — but you'll be fighting for search visibility forever. Weigh whether that fight is worth it.
 
 ### 2. Domain Availability
@@ -59,6 +61,11 @@ When the product targets a specific audience, suffix patterns that include the a
 - For consumer products: .com still matters for trust, but .co and .app are gaining acceptance
 - Avoid novelty TLDs (.xyz, .ninja, .guru, .io.cool) for serious products — they signal impermanence
 - Don't negotiate with domain squatters unless you're prepared to pay $5k-$50k+
+
+**Meaningful-TLD domain-hack (the category-brand move):** instead of fighting for a squatted `.com`, let the TLD *carry meaning* so the brand + URL are one string. Two patterns that read as intentional, not novelty:
+- **The TLD signals the medium/category:** `obsidian.md` (markdown), `npmjs.com`→tools. A markdown/docs product on `.md` reads on-brand AND `.md` is far less squatted than `.com`/`.ai`.
+- **The TLD completes a phrase:** `here.now` = "here now", the name spans SLD+TLD into a meaningful phrase. Pairs well with the product's value prop.
+This sidesteps the squatter war AND can solve verbability/recall in one move. Register the namespace handle as the dotless spelling (`heredotnow`) for npm/GitHub where dots are illegal. **Reality check (learned 2026-06-19):** for ANY short evocable word, exact `.com` AND `.ai` are both gone — don't hard-gate creative direction on a free exact domain; pick the name, then solve the domain via meaningful-TLD / variant / purchase.
 
 **Shortcut for common dictionary words:**
 

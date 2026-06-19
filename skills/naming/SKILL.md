@@ -27,10 +27,14 @@ Before generating ANY names, establish context. Ask the user:
 
 1. **What does this thing do?** (One sentence)
 2. **Who is it for?** (Target audience)
-3. **What should the name feel like?** (Technical? Warm? Playful? Authoritative?)
-4. **Is this part of an existing brand family, or standalone?**
-5. **Any words, concepts, or styles that are off-limits?**
-6. **What platforms does the name need to work on?** (Domain, npm, GitHub, app stores, social handles)
+3. **What should the name feel like?** — TWO axes, capture both: (a) tone (technical? warm? playful? authoritative?) and (b) **language/locale of the name itself** (English? neutral/Latin? Spanish? coined? must it NOT read as bilingual/foreign?). Skipping (b) causes drift into a language the user didn't want.
+4. **Competitive calibre — what brands must this stand BESIDE?** Name the aspiration tier (e.g. "competes with Notion/Obsidian" vs "a small internal utility"). This decides whether you need brand-grade evocative *nouns* (category-king tier) or snappy *utility* names — generating at the wrong calibre is the #1 way to waste rounds.
+5. **Is this part of an existing brand family, or standalone?**
+6. **Any words, concepts, or styles that are off-limits?**
+7. **What platforms does the name need to work on?** (Domain, npm, GitHub, app stores, social handles)
+8. **Resolve conflicting criteria NOW, before generating.** If two requirements tension (e.g. "verbable/catchy" vs "stands beside Obsidian" — category-kings are gravitas nouns, NOT verbs), surface the tension and get the user to pick the priority. Don't let it oscillate across the whole session.
+
+**Naming an EXISTING product (rebrand)? READ its real SSOT first — do NOT brief from a summary or chat Q&A alone.** Find and read the product's PRD / positioning / vision / competitive docs (e.g. `docs/prd/*`, the repo CLAUDE.md is a *summary*, not the SSOT). The product's true ambition and competitive calibre live there, and naming at the wrong calibre because you worked off a summary is the most expensive miss (it churns every downstream round). Ground questions 1–4 in what you read, then confirm with the user.
 
 Don't skip this. A naming brief prevents wasted exploration.
 
@@ -63,6 +67,8 @@ Produce actual names within the chosen territories. Aim for 30-50+ candidates. I
 - **Modified words** (truncated, blended, suffixed)
 - **Foreign words** from relevant languages
 - **Sound-first** — say syllables aloud, find combinations that sound right, check if they mean anything
+
+**Hard/contested spaces → parallel territory subagents.** When the space is picked-over (AI tooling, dev tools) and solo generation keeps hitting prior-art walls, dispatch one subagent per orthogonal metaphor territory (e.g. seal/record/custody/provenance/myth). Each generates 15-25 candidates AND pre-vets prior-art + domain with real tools, returning only a vetted shortlist. Orthogonal territories keep outputs from converging; you synthesize the survivors. (Proven 2026-06-19: 5 agents broke a multi-round deadlock.)
 
 **Do NOT load all references upfront.** Load each file only when you reach the step that needs it. Loading files consumes context — only pay for what you use.
 
@@ -222,3 +228,4 @@ Don't keep pushing weak names forward. Looping back to an earlier step produces 
 6. **Never present names without origin stories.** Every name must have a "why."
 7. **Quality over quantity in finals.** Present 3-5 strong candidates, not 20 mediocre ones.
 8. **Respect the user's taste.** If they reject a direction, don't push it — explore a different territory.
+9. **Brand-grade ≠ verbable.** Category-defining brands (Notion, Obsidian, Figma, Linear) are evocative *nouns* with a concrete metaphor, NOT verbs. If the brief is "compete with [category king]", optimize for gravitas + a drawable metaphor; don't force verbability. The action-verb stays generic (GitHub + "push", Vercel + "deploy"); a brand-verb is *earned* through usage, never designed in.

@@ -28,10 +28,15 @@ for platform in "${PLATFORMS[@]}"; do
       for tld in com dev io; do
         if command -v whois &>/dev/null; then
           result=$(whois "${NAME}.${tld}" 2>&1 || true)
-          if echo "$result" | grep -qiE "no match|not found|no data found|available|no entries|status: free|domain not found"; then
+          # Registration markers win FIRST. A registered domain's whois always carries
+          # these fields; its boilerplate/TOS text often contains "available"/"not found"
+          # in unrelated sentences — matching those first caused false "AVAILABLE" hits.
+          if echo "$result" | grep -qiE "^[[:space:]]*(Domain Name|Creation Date|Created On|Created|Registry Expiry|Registrar|Name Server|nserver|Updated Date):"; then
+            taken "${NAME}.${tld}"
+          elif echo "$result" | grep -qiE "no match|not found|no object found|no data found|not been registered|no entries|status: *free|available for registration|domain not found"; then
             ok "${NAME}.${tld}"
           else
-            taken "${NAME}.${tld}"
+            warn "${NAME}.${tld} (whois ambiguous — verify at registrar; ccTLDs .dev/.md/.ai/.io often unreliable)"
           fi
         else
           code=$(curl -s -o /dev/null -w "%{http_code}" "https://${NAME}.${tld}" 2>/dev/null || echo "000")
