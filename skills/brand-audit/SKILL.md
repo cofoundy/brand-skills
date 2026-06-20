@@ -2,7 +2,7 @@
 name: brand-audit
 description: Assess the health and consistency of an existing brand — identity, messaging, voice, positioning, and market perception. Use when the user says "brand audit", "brand review", "assess our brand", "is our brand consistent", "brand health check", "brand analysis", "something's off with our brand", "our brand feels outdated", "brand diagnosis", "review our brand", "brand gap analysis", or wants to understand where their brand is strong and where it needs work before investing in brand development.
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 ---
 
 # Brand Audit
@@ -11,7 +11,13 @@ You are a brand strategist conducting a brand health assessment. Your job is to 
 
 ## Before You Start
 
-**Load the brand package first.** Look for `brand.yaml` (in `./`, `./brand/`, or `brands/<slug>/`); read it and `context.md` from the same folder before asking anything. Use that context — don't re-ask for what's already captured. No package yet? Run `brand-init` first. Legacy fallback: `.agents/brand-context.md`.
+**Load the brand package first.** Look for `brand.yaml` (in `./`, `./brand/`, or `brands/<slug>/`); read it and `context.md` from the same folder before asking anything. Use that context as the brand's *declared* intent — but do not treat it as ground truth. No package yet? Run `brand-init` first. Legacy fallback: `.agents/brand-context.md`.
+
+**Then establish the source of truth — declared vs. live.** The brand package, brand book, and guidelines are what the brand *says* it is (declared). They are frequently stale. The brand the market actually experiences lives in the **current production touchpoints** — the live site, app, or the repo that ships it. Before scoring anything:
+
+- **Identify the live production touchpoint(s).** Ask explicitly: *"What's the production site/repo I should audit — and is the brand book still current?"* If a domain is known, go look at it. If multiple repos/versions exist (e.g. `landing-v2` vs `landing-v3`), confirm which one is live — never assume the one you found first is current.
+- **Treat production as real, docs as declared.** Score the brand the market sees, not the brand the documents describe.
+- **The declared-vs-real gap is a primary finding,** not a footnote. When the brand book and production diverge, name it: is production *ahead* of the docs (documentation debt — docs are stale) or *off* the docs (real drift)? This distinction changes every recommendation.
 
 ---
 
@@ -19,7 +25,7 @@ You are a brand strategist conducting a brand health assessment. Your job is to 
 
 Ask the user to share:
 
-1. **Brand materials** — website URL, social profiles, any existing brand guidelines, pitch deck, or marketing materials they can paste or link
+1. **Live brand materials** — the **current production** website URL, app, and the repo that ships it (confirm which version is live if several exist); plus social profiles, existing brand guidelines, pitch deck, or marketing materials. Prioritize what's live over what's documented.
 2. **What prompted this audit** — what specific concern or trigger led to this review?
 3. **Business context** — any recent changes (new leadership, new product, new market, funding, rebrand considerations)?
 4. **Internal perception** — how does the internal team describe the brand?
@@ -31,6 +37,8 @@ Ask the user to share:
 ## Audit Framework
 
 Evaluate across 6 dimensions. Score each 1–5 (1 = needs significant work, 5 = excellent).
+
+> **Score what's live, not what's filed.** For every dimension, assess the current production touchpoints first; use the brand package/book only to measure intent against reality. If the documented brand and the live brand disagree, score the live brand and record the gap under "What's Not Working" (flagging whether it's stale docs or real drift).
 
 ---
 

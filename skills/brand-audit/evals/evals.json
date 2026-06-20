@@ -27,6 +27,20 @@
         "May reference rebranding skill if deeper change is needed"
       ],
       "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Audit our brand. We have a brand book in docs/brand/ and our site is live at example.com. We also have an old landing-v1 repo and a newer landing-v2 repo.",
+      "expected_output": "Should establish the source of truth before scoring: confirm which repo/site is the CURRENT production touchpoint (landing-v2 vs landing-v1) and whether the brand book is still current, rather than assuming the brand book or the first repo found is ground truth. Should treat the brand book as 'declared' and production as 'real', score the live brand, and surface the declared-vs-real gap as a primary finding — explicitly distinguishing stale docs (documentation debt) from real drift.",
+      "assertions": [
+        "Asks which repo/site is the current production version before scoring",
+        "Does not assume the brand book or first repo found is ground truth",
+        "Treats docs as 'declared' and production as 'real'",
+        "Scores the live brand, not the documented brand, when they diverge",
+        "Surfaces the declared-vs-real gap as a primary finding",
+        "Distinguishes stale docs (documentation debt) from real drift"
+      ],
+      "files": []
     }
   ]
 }
