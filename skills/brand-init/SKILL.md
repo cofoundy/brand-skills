@@ -33,9 +33,12 @@ Ask only for what you need to scaffold (the deep capture happens in `brand-conte
 
 ### 2. Scaffold the package
 
-Run the bundled script (dependency-free):
+Run the bundled script (dependency-free). It lives at `scripts/brand.sh` relative to
+this skill's directory:
 
 ```bash
+# In Claude Code, ${CLAUDE_SKILL_DIR} expands to this skill's directory. In other
+# agents, resolve scripts/brand.sh relative to where this SKILL.md was loaded.
 bash ${CLAUDE_SKILL_DIR}/scripts/brand.sh init \
   --name "Acme" --one-liner "…" --out brand --date "$(date +%F)" \
   --register brands/registry.yaml      # omit --register for a single in-situ brand
@@ -53,6 +56,8 @@ flips its flag in `brand.yaml`.
 ## Querying the portfolio
 
 ```bash
+# ${CLAUDE_SKILL_DIR} = this skill's directory in Claude Code; elsewhere use scripts/brand.sh
+# relative to where this SKILL.md was loaded.
 bash ${CLAUDE_SKILL_DIR}/scripts/brand.sh list --registry brands/registry.yaml
 # slug · name · one-liner · path · [status]
 ```
