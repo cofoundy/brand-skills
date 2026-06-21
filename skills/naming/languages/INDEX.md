@@ -14,6 +14,6 @@ Use these **instead of** (not alongside) the English-centric `phonosemantics.md`
 
 ## Adding a new language
 
-See [CONTRIBUTING.md](../CONTRIBUTING.md#adding-a-language-file) for the required sections and template. Use `pl.md` as the structural reference.
+See [CONTRIBUTING.md](../../../CONTRIBUTING.md#adding-a-language-file) for the required sections and template. Use `pl.md` as the structural reference.
 
 File naming: `<ISO 639-1 code>.md` (e.g., `de.md`, `ja.md`). Use region codes only when regional variation warrants separate files (e.g., `pt-PT.md` vs `pt-BR.md`).
