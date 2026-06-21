@@ -8,7 +8,8 @@ set -euo pipefail
 
 NAME="${1:?Usage: check-availability.sh <name> [platforms...]}"
 shift
-PLATFORMS=("${@:-domain github npm}")
+PLATFORMS=("$@")
+[[ ${#PLATFORMS[@]} -eq 0 ]] && PLATFORMS=(domain github npm)
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
