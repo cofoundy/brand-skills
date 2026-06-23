@@ -1,8 +1,11 @@
 ---
 name: naming
 description: Name products, SaaS, brands, open source projects, bots, and apps. Use when the user needs to name something, find a brand name, or pick a product name. Metaphor-driven process that produces memorable, meaningful names and avoids AI slop.
+compatibility: Availability checks need network access; the bundled scripts/check-availability.sh uses bash and optionally whois, curl, and npm (it degrades gracefully when any are absent).
 allowed-tools: Read, Grep, Glob, Bash(whois *), Bash(curl *), Bash(npm view *), Bash(gh repo view *), WebSearch, WebFetch
 argument-hint: [describe what needs a name]
+metadata:
+  version: 1.0.0
 ---
 
 # Naming Skill
@@ -130,8 +133,11 @@ Run ALL THREE, for every semifinalist:
 
 **Dictionary word shortcut:** If a candidate is a common English dictionary word (single word, commonly known), skip exact-match TLD checks (`.com`, `.dev`, `.io`, `.app`, `.co`) — they are taken. Go directly to prefix variants (`get[name].com`, `use[name].com`), suffix variants (`[name]dev.com`, `[name]guide.com`), and alternative TLDs (`.site`, `.sh`). Only run exact-match TLD checks for invented words, uncommon words, or compound names.
 
-**Use the bundled availability script** for fast batch checking:
+**Use the bundled availability script** for fast batch checking. It lives at
+`scripts/check-availability.sh` relative to this skill's directory:
 ```bash
+# In Claude Code, ${CLAUDE_SKILL_DIR} expands to this skill's directory. In other
+# agents, resolve scripts/check-availability.sh relative to where this SKILL.md was loaded.
 bash ${CLAUDE_SKILL_DIR}/scripts/check-availability.sh [name] domain npm github pypi telegram
 ```
 Pass only the platforms relevant to the naming brief. Run it for each surviving semifinalist. The script checks domain (whois for .com/.dev/.io), npm, PyPI, GitHub org, crates.io, RubyGems, WP plugin slug, and Telegram.

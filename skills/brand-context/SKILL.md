@@ -94,7 +94,7 @@ Write the brand DNA to **`<package>/context.md`** (inside the brand package — 
 
 Then update the manifest so the package stays queryable:
 - Flip `artifacts.context: true` in `brand.yaml`, and refresh `updated`.
-- If `brand.yaml`'s `one_liner`, `name`, `industry`, or `archetype` are still blank and you now know them, fill them in (e.g. `bash ${CLAUDE_SKILL_DIR}/../brand-init/scripts/brand.sh set --package <package> --key one_liner --value "…"`).
+- If `brand.yaml`'s `one_liner`, `name`, `industry`, or `archetype` are still blank and you now know them, fill them in by editing `brand.yaml` directly. (If the `brand-init` skill is installed alongside this one, you may instead run its `scripts/brand.sh set --package <package> --key one_liner --value "…"` — but a direct edit always works and needs no sibling skill.)
 
 Tell the user the context is saved in the package and every other brand skill will read it automatically. They can update it anytime by running this skill again.
 

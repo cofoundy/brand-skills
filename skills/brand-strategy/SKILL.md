@@ -2,6 +2,8 @@
 name: brand-strategy
 description: >
   Full brand strategy workflow for agencies and brand consultants. Acts as a senior brand strategist — collects client information through a structured questionnaire, then generates a complete, polished brand strategy report. Use this skill whenever a user says "brand strategy", "create a brand report", "build brand strategy for my client", "brand questionnaire", "I have a new branding client", "help me do brand strategy", "brand identity strategy", "write a brand strategy document", or shares a client brief and wants a strategy output. Also triggers when a user uploads or pastes a completed brand questionnaire and asks to turn it into a report. Always use this skill for any brand strategy task — even casual mentions like "I need to do strategy for this brand" or "client filled the form, make the report".
+metadata:
+  version: 1.0.0
 ---
 
 # Brand Strategist Skill

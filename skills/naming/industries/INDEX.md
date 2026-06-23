@@ -6,8 +6,8 @@ These are **supplementary** — load alongside the core skill files (principles.
 
 ## Industries
 
-No industry files yet. See [open issues](https://github.com/glacierphonk/naming/issues?q=label%3Aindustry) for industries being worked on.
+No industry files yet. See [open issues](https://github.com/cofoundy/brand-skills/issues?q=label%3Aindustry) for industries being worked on.
 
 ## Adding an industry file
 
-See [CONTRIBUTING.md](../CONTRIBUTING.md#adding-an-industry-file) for required sections, file naming conventions, and the contribution workflow.
+See [CONTRIBUTING.md](../../../CONTRIBUTING.md#adding-an-industry-file) for required sections, file naming conventions, and the contribution workflow.

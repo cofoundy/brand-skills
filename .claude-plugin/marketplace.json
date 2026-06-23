@@ -6,15 +6,14 @@
   },
   "metadata": {
     "description": "Open-source brand skills that turn an idea into a real brand \u2014 name, identity, voice & brand book \u2014 without leaving your AI agent. Works in Claude Code, Cursor & 70+ agents.",
-    "version": "0.1.2",
-    "repository": "https://github.com/cofoundy/brand-skills"
+    "version": "0.1.2"
   },
   "plugins": [
     {
       "name": "brand-skills",
       "description": "15 brand-genesis skills with a persistence layer: brand-init builds a structured, queryable brand package (brand.yaml + folder) every other skill reads and writes into \u2014 metaphor-driven naming, brand context, strategy, architecture, identity, voice, story, positioning, messaging, target audience, competitor branding, guidelines (brand book), audit, and rebranding. Brand creation only \u2014 no go-to-market.",
       "source": "./",
-      "strict": false,
+      "strict": true,
       "skills": [
         "./skills/brand-init",
         "./skills/naming",
