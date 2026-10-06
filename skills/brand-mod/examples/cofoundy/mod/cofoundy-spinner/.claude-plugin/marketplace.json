@@ -1,0 +1,13 @@
+{
+  "name": "cofoundy",
+  "owner": {
+    "name": "Cofoundy SAC"
+  },
+  "plugins": [
+    {
+      "name": "cofoundy-spinner",
+      "source": "./",
+      "description": "Cofoundy brand spinner for Claude Code (terminal and desktop app)"
+    }
+  ]
+}

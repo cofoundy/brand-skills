@@ -1,0 +1,8 @@
+{
+  "name": "cofoundy-spinner",
+  "version": "1.0.0",
+  "description": "Cofoundy brand spinner for Claude Code (terminal and desktop app)",
+  "author": {
+    "name": "Cofoundy SAC"
+  }
+}

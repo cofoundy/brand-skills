@@ -1,0 +1,14 @@
+schema_version: 1
+slug: cofoundy
+name: Cofoundy
+one_liner: Software + AI factory for LATAM founders.
+status: active
+languages: [es, en]
+links:
+  domain: cofoundy.dev
+  repo: ""
+created: 2026-10-06
+updated: 2026-10-06
+version: 1
+artifacts:
+  mod: true

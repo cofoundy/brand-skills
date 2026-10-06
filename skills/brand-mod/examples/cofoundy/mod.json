@@ -1,0 +1,15 @@
+{
+  "owner": "Cofoundy SAC",
+  "primary": "#2885AE",
+  "desktop_word": "#2984AD",
+  "logo_svg": "assets/logo.svg",
+  "logo_light_svg": "assets/logo-light.svg",
+  "words": {
+    "thinking": ["Mulling", "Connecting dots", "Cooking ideas"],
+    "tool-use": ["Grinding", "Grepping the universe", "Orchestrating agents", "Hotfixing"],
+    "tool-input": ["Grinding", "Spinning up subagents"],
+    "responding": ["Shipping", "Tokenmaxxing", "Vibecoding", "Cooking the PR"],
+    "requesting": ["Warming up GPUs", "Waking the model", "Loading context"]
+  },
+  "done": ["Shipped", "Cooked", "Tokenmaxxed", "Vibecoded", "Deployed"]
+}
