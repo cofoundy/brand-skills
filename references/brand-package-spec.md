@@ -27,6 +27,7 @@ A brand lives in one folder:
   story.md
   guidelines.md          # the brand book
   audit.md
+  mod.json               # brand-mod config (colors, words, logos) → mod/<slug>-spinner/
   assets/                # logo, palette, type, exports
 ```
 
@@ -63,6 +64,7 @@ artifacts:                     # which package files exist (skills update this a
   story: false
   guidelines: false
   audit: false
+  mod: false
 ```
 
 ---

@@ -1,0 +1,239 @@
+<title>Cofoundy spinner, live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  /* Layout: two simulated windows side by side (Ghostty and the desktop app Code tab), controls above each. One look on purpose: a graphite desk so both windows read. */
+  :root {
+    --desk: #15191D;
+    --desk-fg: #DCE3E9;
+    --desk-muted: #8794A0;
+    --edge: #2A3239;
+    --accent: #46A0D0;
+    --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    /* terminal window */
+    --term-bg: #0E1418; --term-fg: #D5DDE3; --term-dim: #7C8891; --term-red: #E5697A; --term-rule: #3A444C;
+    /* desktop app, light and dark */
+    --app-bg: #FAF9F7; --app-fg: #1F2328; --app-muted: #7A8088; --app-bubble: #EFEDE8; --app-edge: #E2DFD8;
+    color-scheme: dark;
+  }
+  body { background: var(--desk); color: var(--desk-fg); font-family: var(--sans); font-size: 15px; line-height: 1.5; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding-inline: 20px; padding-block: 36px 56px; display: grid; gap: 28px; }
+  header { display: grid; gap: 8px; }
+  h1 { margin: 0; font: 600 clamp(22px, 3vw, 30px) var(--sans); letter-spacing: -0.01em; text-wrap: balance; }
+  header p { margin: 0; color: var(--desk-muted); max-width: 70ch; }
+  .stage { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 520px), 1fr)); gap: 22px; align-items: start; }
+  figure { margin: 0; display: grid; gap: 12px; min-width: 0; }
+  figcaption { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  figcaption b { font: 600 12px var(--sans); letter-spacing: 0.1em; text-transform: uppercase; color: var(--desk-muted); }
+  .controls { display: flex; gap: 6px; flex-wrap: wrap; }
+  button {
+    font: 500 12px var(--sans); color: var(--desk-fg); background: transparent; border: 1px solid var(--edge);
+    border-radius: 999px; padding: 4px 11px; cursor: pointer;
+  }
+  button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #06131C; }
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .note { margin: 0; font-size: 13px; color: var(--desk-muted); max-width: 62ch; }
+
+  /* ── window chrome ── */
+  .win { border-radius: 10px; overflow: hidden; border: 1px solid var(--edge); box-shadow: 0 18px 40px rgba(0,0,0,.35); }
+  .bar { display: flex; align-items: center; gap: 7px; padding: 9px 12px; }
+  .dot { width: 11px; height: 11px; border-radius: 50%; }
+  .bar span.t { margin-left: 8px; font: 12px var(--sans); }
+
+  /* ── terminal ── */
+  .term { background: var(--term-bg); color: var(--term-fg); }
+  .term .bar { background: #1A2127; color: var(--term-dim); }
+  .screen { font-family: var(--mono); font-size: 14px; padding: 14px 16px 16px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; overflow: hidden; }
+  .line { display: flex; align-items: center; white-space: pre; min-height: 1.3em; line-height: 1.3; min-width: 0; overflow: hidden; }
+  .line .grow { flex: 1; }
+  .cell { display: inline-block; line-height: 1; font-size: 15px; }
+  .rule { border-top: 1px solid var(--term-rule); }
+  .prompt-row { color: var(--term-fg); }
+  .caret { display: inline-block; width: .6em; height: 1.1em; background: #B7BFF0; vertical-align: -0.2em; }
+  .hint { color: var(--term-dim); font-size: 13px; display: block; text-overflow: ellipsis; }
+  .hint .red { color: var(--term-red); }
+  .logo-png { height: 1.15em; width: auto; display: block; }
+  .muted { color: var(--term-dim); }
+  .history { color: var(--term-dim); font-size: 13px; }
+
+  /* ── desktop app ── */
+  .app { background: var(--app-bg); color: var(--app-fg); }
+  .app.dark { --app-bg: #1E1F22; --app-fg: #E6E7EA; --app-muted: #9097A0; --app-bubble: #2A2C30; --app-edge: #34373C; }
+  .app .bar { background: var(--app-bg); border-bottom: 1px solid var(--app-edge); color: var(--app-muted); }
+  .chat { padding: 18px 20px 20px; display: grid; gap: 14px; font-family: var(--sans); font-size: 14px; }
+  .bubble { justify-self: end; background: var(--app-bubble); border-radius: 14px; padding: 8px 13px; max-width: 80%; }
+  .reply { color: var(--app-fg); max-width: 62ch; }
+  .reply code { font-family: var(--mono); font-size: 12.5px; background: var(--app-bubble); padding: 1px 5px; border-radius: 4px; }
+  .turn { display: flex; align-items: center; gap: 6px; font-size: 13.5px; }
+  .turn .w { font-weight: 700; color: #2984AD; }
+  .turn .t { color: var(--app-muted); }
+  .app .bm-light { display: none !important; } .app .bm-color { display: inline !important; }
+  .app.dark .bm-light { display: inline !important; } .app.dark .bm-color { display: none !important; }
+  .composer { border: 1px solid var(--app-edge); border-radius: 12px; padding: 11px 13px; color: var(--app-muted); font-size: 13.5px; }
+  /* capture mode (#terminal, #desktop-light, #desktop-dark): only that window, for the README GIFs */
+  .capture header, .capture figcaption, .capture .note, .capture figure.off { display: none; }
+  .capture .wrap { max-width: 760px; padding-block: 22px; }
+  .capture .stage { grid-template-columns: minmax(0, 1fr); }
+  @media (prefers-reduced-motion: reduce) { .note.rm { display: block; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Cofoundy spinner, live</h1>
+    <p>How Claude Code looks with the Cofoundy brand while it works, in the terminal and the desktop app. Same colors, words and logos as the mod; only the font differs, since this is a browser.</p>
+  </header>
+
+  <div class="stage">
+    <figure>
+      <figcaption>
+        <b>Terminal · Ghostty</b>
+        <span class="controls">
+          <button type="button" id="t-direct" aria-pressed="true">Ghostty, direct</button>
+          <button type="button" id="t-herdr" aria-pressed="false">Inside herdr</button>
+          
+        </span>
+      </figcaption>
+      <div class="win term">
+        <div class="bar"><i class="dot" style="background:#FF5F57"></i><i class="dot" style="background:#FEBC2E"></i><i class="dot" style="background:#28C840"></i><span class="t">claude — ~/cofoundy</span></div>
+        <div class="screen">
+          <div class="line history">⏺ Read <span style="color:var(--term-fg)">src/app.ts</span> and ran the tests (24 pass).</div>
+          <div class="line" id="t-spin"></div>
+          <div class="rule"></div>
+          <div class="line prompt-row">❯ <span class="caret"></span></div>
+          <div class="rule"></div>
+          <div class="line hint" id="t-hint"></div>
+        </div>
+      </div>
+      <p class="note" id="t-note"></p>
+    </figure>
+
+    <figure>
+      <figcaption>
+        <b>Desktop app · Code tab</b>
+        <span class="controls">
+          <button type="button" id="a-light" aria-pressed="true">Light theme</button>
+          <button type="button" id="a-dark" aria-pressed="false">Dark theme</button>
+        </span>
+      </figcaption>
+      <div class="win app" id="app">
+        <div class="bar"><i class="dot" style="background:#FF5F57"></i><i class="dot" style="background:#FEBC2E"></i><i class="dot" style="background:#28C840"></i><span class="t">Code · cofoundy</span></div>
+        <div class="chat">
+          <div class="bubble">Run the tests and tell me if they pass</div>
+          <div class="reply">Read <code>src/app.ts</code>, running <code>npm test</code> now.</div>
+          <div class="turn"><span id="a-mark"><svg width="16" height="16" height="701" viewBox="0 0 701 701" fill="none" xmlns="http://www.w3.org/2000/svg"><style>.bm-light{display:none}@media (prefers-color-scheme: dark){.bm-light{display:inline}.bm-color{display:none}}</style><g class="bm-color">
+<path d="M653.012 426.724L516.512 347.79C510.318 344.208 502.682 344.208 496.488 347.79L359.988 426.724C356.86 428.533 354.34 431.117 352.613 434.153L496.5 517.227C499.594 519.013 503.047 519.906 506.5 519.906C509.953 519.906 513.406 519.013 516.5 517.227L660.387 434.153C658.661 431.117 656.14 428.533 653.012 426.724Z" fill="#2885AE"/>
+<path d="M663 601.962V444.038C663 440.511 662.071 437.117 660.387 434.153L516.5 517.227C513.406 519.013 509.953 519.906 506.5 519.906V700.897C509.957 700.897 513.415 700.001 516.512 698.21L653.012 619.276C659.193 615.701 663 609.103 663 601.962Z" fill="#17597B"/>
+<path d="M359.988 619.276L496.488 698.21C499.585 700.001 503.043 700.897 506.5 700.897V519.906C503.047 519.906 499.594 519.013 496.5 517.227L352.613 434.153C350.929 437.117 350 440.511 350 444.038V601.962C350 609.103 353.807 615.701 359.988 619.276Z" fill="#0B3957"/>
+<path d="M307.012 426.621L170.512 347.686C164.318 344.105 156.682 344.105 150.488 347.686L13.988 426.621C10.8596 428.43 8.3395 431.014 6.61323 434.05L150.5 517.123C153.594 518.91 157.047 519.803 160.5 519.803C163.953 519.803 167.406 518.91 170.5 517.123L314.387 434.05C312.661 431.014 310.14 428.43 307.012 426.621Z" fill="#0B3957"/>
+<path d="M317 601.859V443.935C317 440.408 316.071 437.013 314.387 434.05L170.5 517.123C167.406 518.91 163.953 519.803 160.5 519.803V700.793C163.957 700.793 167.415 699.898 170.512 698.107L307.012 619.173C313.193 615.598 317 608.999 317 601.859Z" fill="#0B3049"/>
+<path d="M13.988 619.173L150.488 698.107C153.585 699.898 157.043 700.793 160.5 700.793V519.803C157.047 519.803 153.594 518.91 150.5 517.123L6.61323 434.05C4.9286 437.013 4 440.408 4 443.935V601.859C4 608.999 7.80673 615.598 13.988 619.173Z" fill="#072135"/>
+<path d="M687 164.58C700.333 172.278 700.333 191.523 687 199.221L540 284.091C526.667 291.789 510 282.167 510 266.771V97.0298C510 81.6338 526.667 72.0113 540 79.7093L687 164.58Z" fill="#354552"/>
+<path d="M49 204.176C35.6667 211.874 35.6667 231.119 49 238.817L127.75 284.283C141.083 291.981 157.75 282.359 157.75 266.963V176.03C157.75 160.634 141.083 151.011 127.75 158.709L49 204.176Z" fill="#354552"/>
+<path d="M483 300.454V149.984V116.719C483 116.719 481 139.219 466.5 160.219C457.126 173.794 438.474 186.719 438.474 186.719L354.5 235.542C354.5 235.542 345.25 239.219 338.5 251.219C334 259.219 334 277.219 334 277.219V394.719C337.292 394.719 340.584 393.866 343.532 392.16L473.491 316.951C479.376 313.545 483 307.258 483 300.454Z" fill="#072135"/>
+<path d="M194.509 316.951L324.468 392.16C327.416 393.866 330.708 394.719 334 394.719V277.219C334 277.219 334 259.219 338.5 251.219C345.25 239.219 354.5 235.542 354.5 235.542L438.474 186.719C438.474 186.719 457.126 173.794 466.5 160.219C481 139.219 483 116.719 483 116.719V21.7188C483 21.7188 482.5 8.11886 471.5 3.71875C459 -1.28137 448 6.21883 448 6.21883L353 66.7191C353 66.7191 338.447 75.9747 332 86.7191C326 96.7191 322.5 104.43 322.5 116.719V211.219L209 146.219C209 146.219 199.778 140.219 192 145.219C185 149.719 185 155.359 185 158.719V300.454C185 307.258 188.624 313.545 194.509 316.951Z" fill="#103D5C"/>
+</g><svg class="bm-light" x="0" y="0" height="701" viewBox="0 0 701 701">
+<path d="M653.012 426.724L516.512 347.79C510.318 344.208 502.682 344.208 496.488 347.79L359.988 426.724C356.86 428.533 354.34 431.117 352.613 434.153L496.5 517.227C499.594 519.013 503.047 519.906 506.5 519.906C509.953 519.906 513.406 519.013 516.5 517.227L660.387 434.153C658.661 431.117 656.14 428.533 653.012 426.724Z" fill="#E6E6E6"/>
+<path d="M663 601.962V444.038C663 440.511 662.071 437.117 660.387 434.153L516.5 517.227C513.406 519.013 509.953 519.906 506.5 519.906V700.897C509.957 700.897 513.415 700.001 516.512 698.21L653.012 619.276C659.193 615.701 663 609.103 663 601.962Z" fill="#C4C4C4"/>
+<path d="M359.988 619.276L496.488 698.21C499.585 700.001 503.043 700.897 506.5 700.897V519.906C503.047 519.906 499.594 519.013 496.5 517.227L352.613 434.153C350.929 437.117 350 440.511 350 444.038V601.962C350 609.103 353.807 615.701 359.988 619.276Z" fill="#9F9F9F"/>
+<path d="M307.012 426.621L170.512 347.686C164.318 344.105 156.682 344.105 150.488 347.686L13.988 426.621C10.8596 428.43 8.3395 431.014 6.61323 434.05L150.5 517.123C153.594 518.91 157.047 519.803 160.5 519.803C163.953 519.803 167.406 518.91 170.5 517.123L314.387 434.05C312.661 431.014 310.14 428.43 307.012 426.621Z" fill="#CACACA"/>
+<path d="M317 601.859V443.935C317 440.408 316.071 437.013 314.387 434.05L170.5 517.123C167.406 518.91 163.953 519.803 160.5 519.803V700.793C163.957 700.793 167.415 699.898 170.512 698.107L307.012 619.173C313.193 615.598 317 608.999 317 601.859Z" fill="#A7A7A7"/>
+<path d="M13.988 619.173L150.488 698.107C153.585 699.898 157.043 700.793 160.5 700.793V519.803C157.047 519.803 153.594 518.91 150.5 517.123L6.61323 434.05C4.9286 437.013 4 440.408 4 443.935V601.859C4 608.999 7.80673 615.598 13.988 619.173Z" fill="#848484"/>
+<path d="M687 164.58C700.333 172.278 700.333 191.523 687 199.221L540 284.091C526.667 291.789 510 282.167 510 266.771V97.0298C510 81.6338 526.667 72.0113 540 79.7093L687 164.58Z" fill="#A7A7A7"/>
+<path d="M49 204.176C35.6667 211.874 35.6667 231.119 49 238.817L127.75 284.283C141.083 291.981 157.75 282.359 157.75 266.963V176.03C157.75 160.634 141.083 151.011 127.75 158.709L49 204.176Z" fill="#A7A7A7"/>
+<path d="M483 300.454V149.984V116.719C483 116.719 481 139.219 466.5 160.219C457.126 173.794 438.474 186.719 438.474 186.719L354.5 235.542C354.5 235.542 345.25 239.219 338.5 251.219C334 259.219 334 277.219 334 277.219V394.719C337.292 394.719 340.584 393.866 343.532 392.16L473.491 316.951C479.376 313.545 483 307.258 483 300.454Z" fill="#A7A7A7"/>
+<path d="M194.509 316.951L324.468 392.16C327.416 393.866 330.708 394.719 334 394.719V277.219C334 277.219 334 259.219 338.5 251.219C345.25 239.219 354.5 235.542 354.5 235.542L438.474 186.719C438.474 186.719 457.126 173.794 466.5 160.219C481 139.219 483 116.719 483 116.719V21.7188C483 21.7188 482.5 8.11886 471.5 3.71875C459 -1.28137 448 6.21883 448 6.21883L353 66.7191C353 66.7191 338.447 75.9747 332 86.7191C326 96.7191 322.5 104.43 322.5 116.719V211.219L209 146.219C209 146.219 199.778 140.219 192 145.219C185 149.719 185 155.359 185 158.719V300.454C185 307.258 188.624 313.545 194.509 316.951Z" fill="#CACACA"/>
+</svg><defs><linearGradient id="bm-sweep" x1="0" y1="0" x2="1" y2="0.45"><stop offset="0.3" stop-color="#fff" stop-opacity="0"/><stop offset="0.5" stop-color="#fff" stop-opacity="1"/><stop offset="0.7" stop-color="#fff" stop-opacity="0"/><animateTransform attributeName="gradientTransform" type="translate" values="-1.2 0;-1.2 0;1.2 0;1.2 0" keyTimes="0;0.15;0.65;1" dur="3.2s" repeatCount="indefinite"/></linearGradient><mask id="bm-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="701" height="701"><rect x="0" y="0" width="701" height="701" fill="url(#bm-sweep)"/></mask></defs><g mask="url(#bm-mask)" opacity="0.45">
+<path d="M653.012 426.724L516.512 347.79C510.318 344.208 502.682 344.208 496.488 347.79L359.988 426.724C356.86 428.533 354.34 431.117 352.613 434.153L496.5 517.227C499.594 519.013 503.047 519.906 506.5 519.906C509.953 519.906 513.406 519.013 516.5 517.227L660.387 434.153C658.661 431.117 656.14 428.533 653.012 426.724Z" fill="#FFFFFF"/>
+<path d="M663 601.962V444.038C663 440.511 662.071 437.117 660.387 434.153L516.5 517.227C513.406 519.013 509.953 519.906 506.5 519.906V700.897C509.957 700.897 513.415 700.001 516.512 698.21L653.012 619.276C659.193 615.701 663 609.103 663 601.962Z" fill="#FFFFFF"/>
+<path d="M359.988 619.276L496.488 698.21C499.585 700.001 503.043 700.897 506.5 700.897V519.906C503.047 519.906 499.594 519.013 496.5 517.227L352.613 434.153C350.929 437.117 350 440.511 350 444.038V601.962C350 609.103 353.807 615.701 359.988 619.276Z" fill="#FFFFFF"/>
+<path d="M307.012 426.621L170.512 347.686C164.318 344.105 156.682 344.105 150.488 347.686L13.988 426.621C10.8596 428.43 8.3395 431.014 6.61323 434.05L150.5 517.123C153.594 518.91 157.047 519.803 160.5 519.803C163.953 519.803 167.406 518.91 170.5 517.123L314.387 434.05C312.661 431.014 310.14 428.43 307.012 426.621Z" fill="#FFFFFF"/>
+<path d="M317 601.859V443.935C317 440.408 316.071 437.013 314.387 434.05L170.5 517.123C167.406 518.91 163.953 519.803 160.5 519.803V700.793C163.957 700.793 167.415 699.898 170.512 698.107L307.012 619.173C313.193 615.598 317 608.999 317 601.859Z" fill="#FFFFFF"/>
+<path d="M13.988 619.173L150.488 698.107C153.585 699.898 157.043 700.793 160.5 700.793V519.803C157.047 519.803 153.594 518.91 150.5 517.123L6.61323 434.05C4.9286 437.013 4 440.408 4 443.935V601.859C4 608.999 7.80673 615.598 13.988 619.173Z" fill="#FFFFFF"/>
+<path d="M687 164.58C700.333 172.278 700.333 191.523 687 199.221L540 284.091C526.667 291.789 510 282.167 510 266.771V97.0298C510 81.6338 526.667 72.0113 540 79.7093L687 164.58Z" fill="#FFFFFF"/>
+<path d="M49 204.176C35.6667 211.874 35.6667 231.119 49 238.817L127.75 284.283C141.083 291.981 157.75 282.359 157.75 266.963V176.03C157.75 160.634 141.083 151.011 127.75 158.709L49 204.176Z" fill="#FFFFFF"/>
+<path d="M483 300.454V149.984V116.719C483 116.719 481 139.219 466.5 160.219C457.126 173.794 438.474 186.719 438.474 186.719L354.5 235.542C354.5 235.542 345.25 239.219 338.5 251.219C334 259.219 334 277.219 334 277.219V394.719C337.292 394.719 340.584 393.866 343.532 392.16L473.491 316.951C479.376 313.545 483 307.258 483 300.454Z" fill="#FFFFFF"/>
+<path d="M194.509 316.951L324.468 392.16C327.416 393.866 330.708 394.719 334 394.719V277.219C334 277.219 334 259.219 338.5 251.219C345.25 239.219 354.5 235.542 354.5 235.542L438.474 186.719C438.474 186.719 457.126 173.794 466.5 160.219C481 139.219 483 116.719 483 116.719V21.7188C483 21.7188 482.5 8.11886 471.5 3.71875C459 -1.28137 448 6.21883 448 6.21883L353 66.7191C353 66.7191 338.447 75.9747 332 86.7191C326 96.7191 322.5 104.43 322.5 116.719V211.219L209 146.219C209 146.219 199.778 140.219 192 145.219C185 149.719 185 155.359 185 158.719V300.454C185 307.258 188.624 313.545 194.509 316.951Z" fill="#FFFFFF"/>
+</g></svg></span><span class="w" id="a-word">Grinding</span><span class="t" id="a-time">… 3s</span></div>
+          <div class="composer">Reply to Claude…</div>
+        </div>
+      </div>
+      <p class="note">The logo with a soft sweep every 3.2 s. The word is one color, readable on both themes.</p>
+    </figure>
+  </div>
+</div>
+
+<script>
+// 1:1 port of the mod's hooks/spinner.ts
+const STOPS = ["#091D26", "#103546", "#1A5671", "#2885AE", "#57A0C0", "#94C2D6", "#D4E7EF", "#FFFFFF"];
+const BASE = 3;
+const tone = i => STOPS[Math.max(0, Math.min(STOPS.length - 1, i))];
+const lit = d => tone(Math.max(BASE, STOPS.length - 1 - Math.round(d * 1.4)));
+const HOLE_MS = 150;
+const glintPos = (len, frame) => (Math.floor(frame * 1.5) % (len + 3 + 10)) - 5;
+function square(now, pos) {
+  const hole = Math.floor(now / HOLE_MS) % 4;
+  const cube = (x, y) => lit(Math.abs(x - 3 + 0.5 * y - pos));
+  const column = (x, up, down) => {
+    if (hole === up) return { ch: '▄', color: cube(x, 1) };
+    if (hole === down) return { ch: '▀', color: cube(x, 0) };
+    return { ch: '▀', color: cube(x, 0), bg: cube(x, 1) };
+  };
+  return [column(0, 0, 3), column(1, 1, 2)];
+}
+const shimmerAt = (text, pos) => [...text].map((ch, i) => ({ ch, color: lit(Math.abs(i - pos)) }));
+const WORDS = ["Grinding", "Grepping the universe", "Orchestrating agents", "Hotfixing", "Shipping", "Tokenmaxxing", "Vibecoding", "Cooking the PR", "Mulling", "Connecting dots", "Cooking ideas"];
+const PNG = 'data:image/png;base64,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';
+
+const cell = c => `<span class="cell" style="color:${c.color}${c.bg ? `;background:${c.bg}` : ''}">${c.ch}</span>`;
+const state = { herdr: false, rec: false };
+const t0 = performance.now();
+const tSpin = document.getElementById('t-spin'), tHint = document.getElementById('t-hint'), tNote = document.getElementById('t-note');
+const aWord = document.getElementById('a-word'), aTime = document.getElementById('a-time');
+
+function hintLine() {
+  const base = `-- INSERT -- <span class="red">⏵⏵ bypass permissions on</span> (shift+tab to cycle)`;
+  return base;
+}
+function notes() {
+  tNote.textContent = state.herdr
+    ? 'Inside herdr, tmux or zellij images don\'t pass through: the logo on the right is hidden. Square and word stay.'
+    : 'In Ghostty or kitty run directly, the logo sits at the right edge of the spinner row.';
+}
+
+let last = -1;
+function tick() {
+  const now = performance.now() - t0;
+  const frame = Math.floor(now / 100);
+  if (frame !== last) {
+    last = frame;
+    const word = WORDS[Math.floor(now / 3500) % WORDS.length];
+    const pos = glintPos([...word].length, frame);
+    const secs = Math.floor(now / 1000) % 90;
+    const logo = state.herdr || !PNG ? '' : `<span class="grow"></span><img class="logo-png" src="${PNG}" alt="Cofoundy">`;
+    tSpin.innerHTML = square(now, pos).map(cell).join('') + ' ' + shimmerAt(word, pos - 3).map(c => `<span style="color:${c.color};font-weight:700">${c.ch}</span>`).join('') + `<span class="muted">… ${secs}s</span>` + logo;
+    if (frame % 10 === 0) { aWord.textContent = word; aTime.textContent = `… ${secs}s`; }
+  }
+  requestAnimationFrame(tick);
+}
+
+function press(on, off) { on.setAttribute('aria-pressed', 'true'); off.setAttribute('aria-pressed', 'false'); }
+const bD = document.getElementById('t-direct'), bH = document.getElementById('t-herdr');
+bD.addEventListener('click', () => { state.herdr = false; press(bD, bH); notes(); last = -1; });
+bH.addEventListener('click', () => { state.herdr = true; press(bH, bD); notes(); last = -1; });
+const app = document.getElementById('app'), aL = document.getElementById('a-light'), aD = document.getElementById('a-dark');
+aL.addEventListener('click', () => { app.classList.remove('dark'); press(aL, aD); });
+aD.addEventListener('click', () => { app.classList.add('dark'); press(aD, aL); });
+
+const mode = location.hash.slice(1);
+if (mode) {
+  document.documentElement.classList.add('capture');
+  const [term, desk] = document.querySelectorAll('figure');
+  if (mode === 'terminal') desk.classList.add('off'); else term.classList.add('off');
+  if (mode === 'desktop-dark') app.classList.add('dark');
+}
+tHint.innerHTML = hintLine();
+notes();
+requestAnimationFrame(tick);
+</script>

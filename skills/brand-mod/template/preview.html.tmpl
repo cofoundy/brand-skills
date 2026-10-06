@@ -1,0 +1,206 @@
+<title>__NAME__ spinner, live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  /* Layout: two simulated windows side by side (Ghostty and the desktop app Code tab), controls above each. One look on purpose: a graphite desk so both windows read. */
+  :root {
+    --desk: #15191D;
+    --desk-fg: #DCE3E9;
+    --desk-muted: #8794A0;
+    --edge: #2A3239;
+    --accent: #46A0D0;
+    --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    /* terminal window */
+    --term-bg: #0E1418; --term-fg: #D5DDE3; --term-dim: #7C8891; --term-red: #E5697A; --term-rule: #3A444C;
+    /* desktop app, light and dark */
+    --app-bg: #FAF9F7; --app-fg: #1F2328; --app-muted: #7A8088; --app-bubble: #EFEDE8; --app-edge: #E2DFD8;
+    color-scheme: dark;
+  }
+  body { background: var(--desk); color: var(--desk-fg); font-family: var(--sans); font-size: 15px; line-height: 1.5; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding-inline: 20px; padding-block: 36px 56px; display: grid; gap: 28px; }
+  header { display: grid; gap: 8px; }
+  h1 { margin: 0; font: 600 clamp(22px, 3vw, 30px) var(--sans); letter-spacing: -0.01em; text-wrap: balance; }
+  header p { margin: 0; color: var(--desk-muted); max-width: 70ch; }
+  .stage { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 520px), 1fr)); gap: 22px; align-items: start; }
+  figure { margin: 0; display: grid; gap: 12px; min-width: 0; }
+  figcaption { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  figcaption b { font: 600 12px var(--sans); letter-spacing: 0.1em; text-transform: uppercase; color: var(--desk-muted); }
+  .controls { display: flex; gap: 6px; flex-wrap: wrap; }
+  button {
+    font: 500 12px var(--sans); color: var(--desk-fg); background: transparent; border: 1px solid var(--edge);
+    border-radius: 999px; padding: 4px 11px; cursor: pointer;
+  }
+  button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #06131C; }
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .note { margin: 0; font-size: 13px; color: var(--desk-muted); max-width: 62ch; }
+
+  /* ── window chrome ── */
+  .win { border-radius: 10px; overflow: hidden; border: 1px solid var(--edge); box-shadow: 0 18px 40px rgba(0,0,0,.35); }
+  .bar { display: flex; align-items: center; gap: 7px; padding: 9px 12px; }
+  .dot { width: 11px; height: 11px; border-radius: 50%; }
+  .bar span.t { margin-left: 8px; font: 12px var(--sans); }
+
+  /* ── terminal ── */
+  .term { background: var(--term-bg); color: var(--term-fg); }
+  .term .bar { background: #1A2127; color: var(--term-dim); }
+  .screen { font-family: var(--mono); font-size: 14px; padding: 14px 16px 16px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; overflow: hidden; }
+  .line { display: flex; align-items: center; white-space: pre; min-height: 1.3em; line-height: 1.3; min-width: 0; overflow: hidden; }
+  .line .grow { flex: 1; }
+  .cell { display: inline-block; line-height: 1; font-size: 15px; }
+  .rule { border-top: 1px solid var(--term-rule); }
+  .prompt-row { color: var(--term-fg); }
+  .caret { display: inline-block; width: .6em; height: 1.1em; background: #B7BFF0; vertical-align: -0.2em; }
+  .hint { color: var(--term-dim); font-size: 13px; display: block; text-overflow: ellipsis; }
+  .hint .red { color: var(--term-red); }
+  .logo-png { height: 1.15em; width: auto; display: block; }
+  .muted { color: var(--term-dim); }
+  .history { color: var(--term-dim); font-size: 13px; }
+
+  /* ── desktop app ── */
+  .app { background: var(--app-bg); color: var(--app-fg); }
+  .app.dark { --app-bg: #1E1F22; --app-fg: #E6E7EA; --app-muted: #9097A0; --app-bubble: #2A2C30; --app-edge: #34373C; }
+  .app .bar { background: var(--app-bg); border-bottom: 1px solid var(--app-edge); color: var(--app-muted); }
+  .chat { padding: 18px 20px 20px; display: grid; gap: 14px; font-family: var(--sans); font-size: 14px; }
+  .bubble { justify-self: end; background: var(--app-bubble); border-radius: 14px; padding: 8px 13px; max-width: 80%; }
+  .reply { color: var(--app-fg); max-width: 62ch; }
+  .reply code { font-family: var(--mono); font-size: 12.5px; background: var(--app-bubble); padding: 1px 5px; border-radius: 4px; }
+  .turn { display: flex; align-items: center; gap: 6px; font-size: 13.5px; }
+  .turn .w { font-weight: 700; color: __DESKTOP_WORD__; }
+  .turn .t { color: var(--app-muted); }
+  .app .bm-light { display: none !important; } .app .bm-color { display: inline !important; }
+  .app.dark .bm-light { display: inline !important; } .app.dark .bm-color { display: none !important; }
+  .composer { border: 1px solid var(--app-edge); border-radius: 12px; padding: 11px 13px; color: var(--app-muted); font-size: 13.5px; }
+  /* capture mode (#terminal, #desktop-light, #desktop-dark): only that window, for the README GIFs */
+  .capture header, .capture figcaption, .capture .note, .capture figure.off { display: none; }
+  .capture .wrap { max-width: 760px; padding-block: 22px; }
+  .capture .stage { grid-template-columns: minmax(0, 1fr); }
+  @media (prefers-reduced-motion: reduce) { .note.rm { display: block; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>__NAME__ spinner, live</h1>
+    <p>How Claude Code looks with the __NAME__ brand while it works, in the terminal and the desktop app. Same colors, words and logos as the mod; only the font differs, since this is a browser.</p>
+  </header>
+
+  <div class="stage">
+    <figure>
+      <figcaption>
+        <b>Terminal · Ghostty</b>
+        <span class="controls">
+          <button type="button" id="t-direct" aria-pressed="true">Ghostty, direct</button>
+          <button type="button" id="t-herdr" aria-pressed="false">Inside herdr</button>
+          
+        </span>
+      </figcaption>
+      <div class="win term">
+        <div class="bar"><i class="dot" style="background:#FF5F57"></i><i class="dot" style="background:#FEBC2E"></i><i class="dot" style="background:#28C840"></i><span class="t">claude — ~/__SLUG__</span></div>
+        <div class="screen">
+          <div class="line history">⏺ Read <span style="color:var(--term-fg)">src/app.ts</span> and ran the tests (24 pass).</div>
+          <div class="line" id="t-spin"></div>
+          <div class="rule"></div>
+          <div class="line prompt-row">❯ <span class="caret"></span></div>
+          <div class="rule"></div>
+          <div class="line hint" id="t-hint"></div>
+        </div>
+      </div>
+      <p class="note" id="t-note"></p>
+    </figure>
+
+    <figure>
+      <figcaption>
+        <b>Desktop app · Code tab</b>
+        <span class="controls">
+          <button type="button" id="a-light" aria-pressed="true">Light theme</button>
+          <button type="button" id="a-dark" aria-pressed="false">Dark theme</button>
+        </span>
+      </figcaption>
+      <div class="win app" id="app">
+        <div class="bar"><i class="dot" style="background:#FF5F57"></i><i class="dot" style="background:#FEBC2E"></i><i class="dot" style="background:#28C840"></i><span class="t">Code · __SLUG__</span></div>
+        <div class="chat">
+          <div class="bubble">Run the tests and tell me if they pass</div>
+          <div class="reply">Read <code>src/app.ts</code>, running <code>npm test</code> now.</div>
+          <div class="turn"><span id="a-mark">__SVG__</span><span class="w" id="a-word">__FIRSTWORD__</span><span class="t" id="a-time">… 3s</span></div>
+          <div class="composer">Reply to Claude…</div>
+        </div>
+      </div>
+      <p class="note">The logo with a soft sweep every 3.2 s. The word is one color, readable on both themes.</p>
+    </figure>
+  </div>
+</div>
+
+<script>
+// 1:1 port of the mod's hooks/spinner.ts
+const STOPS = __STOPS__;
+const BASE = 3;
+const tone = i => STOPS[Math.max(0, Math.min(STOPS.length - 1, i))];
+const lit = d => tone(Math.max(BASE, STOPS.length - 1 - Math.round(d * 1.4)));
+const HOLE_MS = 150;
+const glintPos = (len, frame) => (Math.floor(frame * 1.5) % (len + 3 + 10)) - 5;
+function square(now, pos) {
+  const hole = Math.floor(now / HOLE_MS) % 4;
+  const cube = (x, y) => lit(Math.abs(x - 3 + 0.5 * y - pos));
+  const column = (x, up, down) => {
+    if (hole === up) return { ch: '▄', color: cube(x, 1) };
+    if (hole === down) return { ch: '▀', color: cube(x, 0) };
+    return { ch: '▀', color: cube(x, 0), bg: cube(x, 1) };
+  };
+  return [column(0, 0, 3), column(1, 1, 2)];
+}
+const shimmerAt = (text, pos) => [...text].map((ch, i) => ({ ch, color: lit(Math.abs(i - pos)) }));
+const WORDS = __WORDS__;
+const PNG = '__PNG_URI__';
+
+const cell = c => `<span class="cell" style="color:${c.color}${c.bg ? `;background:${c.bg}` : ''}">${c.ch}</span>`;
+const state = { herdr: false, rec: false };
+const t0 = performance.now();
+const tSpin = document.getElementById('t-spin'), tHint = document.getElementById('t-hint'), tNote = document.getElementById('t-note');
+const aWord = document.getElementById('a-word'), aTime = document.getElementById('a-time');
+
+function hintLine() {
+  const base = `-- INSERT -- <span class="red">⏵⏵ bypass permissions on</span> (shift+tab to cycle)`;
+  return base;
+}
+function notes() {
+  tNote.textContent = state.herdr
+    ? 'Inside herdr, tmux or zellij images don\'t pass through: the logo on the right is hidden. Square and word stay.'
+    : 'In Ghostty or kitty run directly, the logo sits at the right edge of the spinner row.';
+}
+
+let last = -1;
+function tick() {
+  const now = performance.now() - t0;
+  const frame = Math.floor(now / 100);
+  if (frame !== last) {
+    last = frame;
+    const word = WORDS[Math.floor(now / 3500) % WORDS.length];
+    const pos = glintPos([...word].length, frame);
+    const secs = Math.floor(now / 1000) % 90;
+    const logo = state.herdr || !PNG ? '' : `<span class="grow"></span><img class="logo-png" src="${PNG}" alt="__NAME__">`;
+    tSpin.innerHTML = square(now, pos).map(cell).join('') + ' ' + shimmerAt(word, pos - 3).map(c => `<span style="color:${c.color};font-weight:700">${c.ch}</span>`).join('') + `<span class="muted">… ${secs}s</span>` + logo;
+    if (frame % 10 === 0) { aWord.textContent = word; aTime.textContent = `… ${secs}s`; }
+  }
+  requestAnimationFrame(tick);
+}
+
+function press(on, off) { on.setAttribute('aria-pressed', 'true'); off.setAttribute('aria-pressed', 'false'); }
+const bD = document.getElementById('t-direct'), bH = document.getElementById('t-herdr');
+bD.addEventListener('click', () => { state.herdr = false; press(bD, bH); notes(); last = -1; });
+bH.addEventListener('click', () => { state.herdr = true; press(bH, bD); notes(); last = -1; });
+const app = document.getElementById('app'), aL = document.getElementById('a-light'), aD = document.getElementById('a-dark');
+aL.addEventListener('click', () => { app.classList.remove('dark'); press(aL, aD); });
+aD.addEventListener('click', () => { app.classList.add('dark'); press(aD, aL); });
+
+const mode = location.hash.slice(1);
+if (mode) {
+  document.documentElement.classList.add('capture');
+  const [term, desk] = document.querySelectorAll('figure');
+  if (mode === 'terminal') desk.classList.add('off'); else term.classList.add('off');
+  if (mode === 'desktop-dark') app.classList.add('dark');
+}
+tHint.innerHTML = hintLine();
+notes();
+requestAnimationFrame(tick);
+</script>

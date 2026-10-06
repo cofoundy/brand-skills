@@ -5,7 +5,7 @@
 # Brand Skills — Branding, Naming & Brand Identity for AI Agents
 
 **Turn an idea into a real brand — name, identity, voice, and a brand book — without leaving your AI
-agent.** 15 open-source [Agent Skills](https://agentskills.io) for founders, indie hackers, and
+agent.** 16 open-source [Agent Skills](https://agentskills.io) for founders, indie hackers, and
 agencies building AI-native — in Claude Code, Cursor, Windsurf, and 70+ agents.
 
 ```bash
@@ -13,12 +13,29 @@ npx skills add cofoundy/brand-skills
 ```
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-black.svg)](./LICENSE)
-[![Agent Skills](https://img.shields.io/badge/agent%20skills-15-black.svg)](#skills)
+[![Agent Skills](https://img.shields.io/badge/agent%20skills-16-black.svg)](#skills)
 [![Stars](https://badgen.net/github/stars/cofoundy/brand-skills?color=black)](https://github.com/cofoundy/brand-skills/stargazers)
 [![Install](https://img.shields.io/badge/npx%20skills%20add-cofoundy%2Fbrand--skills-black.svg?logo=npm&logoColor=white)](https://github.com/cofoundy/brand-skills)
 <!-- Re-add once skills.sh indexes the repo (post-install telemetry):
 [![skills.sh](https://skills.sh/b/cofoundy/brand-skills)](https://skills.sh/cofoundy/brand-skills) -->
 
+
+---
+
+## New: your brand inside Claude Code
+
+<p align="center">
+  <img src="./skills/brand-mod/examples/cofoundy/mod/cofoundy-spinner/media/terminal.gif" alt="A branded Claude Code spinner in the terminal" width="760" />
+</p>
+<p align="center">
+  <img src="./skills/brand-mod/examples/cofoundy/mod/cofoundy-spinner/media/desktop-light.gif" alt="The same brand in the Claude desktop app, light theme" width="49%" />
+  <img src="./skills/brand-mod/examples/cofoundy/mod/cofoundy-spinner/media/desktop-dark.gif" alt="The same brand in the Claude desktop app, dark theme" width="49%" />
+</p>
+
+**`brand-mod`** turns a finished brand into a Claude Code mod: while Claude works, the terminal and
+the desktop app show your colors, your words and your logo. It previews everything in HTML first,
+so nothing ships until you approve it. Great for screen recordings and demos.
+[See the skill →](./skills/brand-mod/)
 
 ---
 
@@ -93,6 +110,7 @@ to confirm it landed.
                                                     ▼
                                           brand-guidelines  (the brand book)
                                           brand-audit · rebranding
+                                          brand-mod  (your brand inside Claude Code)
 ```
 
 ## Skills
@@ -114,9 +132,11 @@ to confirm it landed.
 | **brand-guidelines** | The brand book — logo usage, color, type, voice, application rules. |
 | **brand-audit** | Brand health across 6 dimensions. |
 | **rebranding** | Audit → reposition → relaunch an existing brand. |
+| **brand-mod** | Your brand inside Claude Code: a branded spinner for the terminal and desktop app, previewed in HTML before it ships. Claude Code only. |
 
 > **Scope:** v0 is brand *genesis* — creating a brand. It does not do go-to-market (ads, channels,
-> growth). That's intentional; a brand should exist before it's marketed.
+> growth). That's intentional; a brand should exist before it's marketed. `brand-mod` is the one
+> application skill: it carries a finished brand into the tool your team already works in.
 
 ## Brand packages & registry (the persistence layer)
 
