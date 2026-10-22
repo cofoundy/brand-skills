@@ -3,6 +3,7 @@ name: brand-architecture
 description: Define how multiple brands, sub-brands, and product lines relate to each other under one organization. Use when the user says "brand architecture", "sub-brand", "brand portfolio", "master brand", "house of brands", "branded house", "product naming system", "how do our brands relate", "parent brand", "brand hierarchy", "brand family", "we have multiple products and need a naming system", "brand extension", "new product launch under existing brand", or when a company has grown beyond a single brand and needs a system to manage brand relationships.
 metadata:
   version: 1.0.0
+disable-model-invocation: true
 ---
 
 # Brand Architecture

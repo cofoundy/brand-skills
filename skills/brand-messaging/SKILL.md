@@ -3,6 +3,7 @@ name: brand-messaging
 description: Build a brand's messaging hierarchy — taglines, value propositions, key messages, and proof points for each audience. Use when the user says "brand messaging", "messaging framework", "value proposition", "tagline", "brand tagline", "key messages", "messaging hierarchy", "what should we say about our brand", "brand copy foundation", "messaging architecture", "elevator pitch", "one-liner", "brand statement", or needs consistent language across all communications. Also use when messaging feels inconsistent across channels or teams.
 metadata:
   version: 1.0.0
+disable-model-invocation: true
 ---
 
 # Brand Messaging

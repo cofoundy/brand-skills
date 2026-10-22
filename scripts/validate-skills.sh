@@ -16,6 +16,15 @@ for dir in skills/*/; do
   fi
   if ! grep -qE '^name:' "$f"; then echo "  ✗ $name: SKILL.md missing 'name:'"; fail=1; skill_ok=0; fi
   if ! grep -qE '^description:' "$f"; then echo "  ✗ $name: SKILL.md missing 'description:'"; fail=1; skill_ok=0; fi
+  # Only the `brand` router is visible to the agent; every other skill is reached through it,
+  # so its description costs no context per session.
+  if [[ "$name" == "brand" ]]; then
+    if grep -qE '^disable-model-invocation:[[:space:]]*true' "$f"; then echo "  ✗ brand: the router must stay model-invocable"; fail=1; skill_ok=0; fi
+  elif ! grep -qE '^disable-model-invocation:[[:space:]]*true' "$f"; then
+    echo "  ✗ $name: missing 'disable-model-invocation: true' (route it through skills/brand)"; fail=1; skill_ok=0
+  elif ! grep -qF "\`$name\`" skills/brand/SKILL.md; then
+    echo "  ✗ $name: not listed in the skills/brand routing table"; fail=1; skill_ok=0
+  fi
   [[ $skill_ok -eq 1 ]] && echo "  ✓ $name"
 done
 

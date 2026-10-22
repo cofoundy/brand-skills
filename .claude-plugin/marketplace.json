@@ -6,15 +6,16 @@
   },
   "metadata": {
     "description": "Open-source brand skills that turn an idea into a real brand — name, identity, voice & brand book — without leaving your AI agent. Works in Claude Code, Cursor & 70+ agents.",
-    "version": "0.2.0"
+    "version": "0.3.0"
   },
   "plugins": [
     {
       "name": "brand-skills",
-      "description": "16 brand skills with a persistence layer: brand-init builds a structured, queryable brand package (brand.yaml + folder) every other skill reads and writes into — metaphor-driven naming, brand context, strategy, architecture, identity, voice, story, positioning, messaging, target audience, competitor branding, guidelines (brand book), audit, rebranding, and brand-mod (your brand inside Claude Code). Brand creation only — no go-to-market.",
+      "description": "16 brand skills behind one entry point (`brand`, the only one the agent sees until it routes) with a persistence layer: brand-init builds a structured, queryable brand package (brand.yaml + folder) every other skill reads and writes into — metaphor-driven naming, brand context, strategy, architecture, identity, voice, story, positioning, messaging, target audience, competitor branding, guidelines (brand book), audit, rebranding, and brand-mod (your brand inside Claude Code). Brand creation only — no go-to-market.",
       "source": "./",
       "strict": true,
       "skills": [
+        "./skills/brand",
         "./skills/brand-init",
         "./skills/naming",
         "./skills/brand-context",

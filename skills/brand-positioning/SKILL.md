@@ -3,6 +3,7 @@ name: brand-positioning
 description: Define and sharpen a brand's market positioning — where it sits relative to competitors, what it owns, and how it differentiates. Use when the user says "brand positioning", "positioning statement", "where do we sit in the market", "how are we different", "differentiation strategy", "positioning map", "competitive positioning", "what space do we own", "brand territory", "we're too similar to competitors", "help me position this brand", or wants to find a defensible place in a crowded category.
 metadata:
   version: 1.0.0
+disable-model-invocation: true
 ---
 
 # Brand Positioning

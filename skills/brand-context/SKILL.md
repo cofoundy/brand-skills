@@ -3,6 +3,7 @@ name: brand-context
 description: Foundation skill that captures and stores core brand context — identity, audience, positioning, values, and voice. Use when the user says "set brand context", "save my brand info", "store brand details", "brand profile", "create brand context file", "update brand context", or when starting any brand project for the first time. Every other brand skill reads this file first. Always run this before beginning any brand work if the context file doesn't exist yet.
 metadata:
   version: 1.0.0
+disable-model-invocation: true
 ---
 
 # Brand Context

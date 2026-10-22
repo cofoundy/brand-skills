@@ -3,6 +3,7 @@ name: brand-audit
 description: Assess the health and consistency of an existing brand — identity, messaging, voice, positioning, and market perception. Use when the user says "brand audit", "brand review", "assess our brand", "is our brand consistent", "brand health check", "brand analysis", "something's off with our brand", "our brand feels outdated", "brand diagnosis", "review our brand", "brand gap analysis", or wants to understand where their brand is strong and where it needs work before investing in brand development.
 metadata:
   version: 1.1.0
+disable-model-invocation: true
 ---
 
 # Brand Audit

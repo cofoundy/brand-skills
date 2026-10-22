@@ -3,6 +3,7 @@ name: rebranding
 description: Plan and execute a brand transformation — from diagnosis to new brand definition to rollout. Use when the user says "rebrand", "rebranding", "brand refresh", "update the brand", "modernize the brand", "our brand is outdated", "we've outgrown our brand", "the brand needs to change", "brand transformation", "pivot the brand", "we're changing the brand", "the old brand doesn't fit anymore", or when a brand has evolved in direction, audience, or market position and needs its identity to catch up.
 metadata:
   version: 1.0.0
+disable-model-invocation: true
 ---
 
 # Rebranding

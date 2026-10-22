@@ -3,6 +3,7 @@ name: brand-identity
 description: Create a visual identity brief for a brand — logo direction, color palette, typography, imagery style, and design system foundations. Use when the user says "visual identity", "brand identity", "logo brief", "logo direction", "design brief", "brand design", "color palette for my brand", "typography for my brand", "visual language", "design system", "brand look and feel", "what should my brand look like", or is briefing a designer or design agency. Also use when the user has a brand strategy and wants to translate it into visual design direction.
 metadata:
   version: 1.0.0
+disable-model-invocation: true
 ---
 
 # Brand Identity

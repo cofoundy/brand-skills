@@ -3,6 +3,7 @@ name: target-audience
 description: Define a brand's target audience with deep personas, psychographics, and ICP (Ideal Customer Profile). Use when the user says "target audience", "ideal customer", "customer persona", "audience persona", "ICP", "who is our customer", "define our audience", "audience research", "buyer persona", "who should we be targeting", "audience profile", "customer profile", "who buys this", or needs to understand their audience more deeply before investing in brand or marketing work.
 metadata:
   version: 1.0.0
+disable-model-invocation: true
 ---
 
 # Target Audience

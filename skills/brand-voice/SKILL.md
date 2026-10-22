@@ -3,6 +3,7 @@ name: brand-voice
 description: Define a brand's verbal identity — tone, voice, writing style, vocabulary, and messaging rules. Use when the user says "brand voice", "tone of voice", "how should we write", "writing guidelines", "copy style guide", "brand language", "verbal identity", "how should the brand sound", "tone guide", "our copy doesn't sound right", "copywriter guidelines", "voice and tone", or when onboarding a copywriter or content team. Also use when the user has a brand strategy and wants to define how the brand communicates.
 metadata:
   version: 1.0.0
+disable-model-invocation: true
 ---
 
 # Brand Voice

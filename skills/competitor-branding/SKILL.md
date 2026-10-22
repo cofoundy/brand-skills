@@ -3,6 +3,7 @@ name: competitor-branding
 description: Analyze how competitors present their brand — identity, messaging, positioning, voice, and visual style — to find gaps and opportunities. Use when the user says "competitor brand analysis", "analyze competitor brands", "how do competitors position themselves", "competitor messaging", "competitor identity", "what are competitors saying", "benchmark competitors", "competitive brand landscape", "how do we compare to competitors", "competitive audit", or wants to understand the brand landscape before defining their own position.
 metadata:
   version: 1.0.0
+disable-model-invocation: true
 ---
 
 # Competitor Branding

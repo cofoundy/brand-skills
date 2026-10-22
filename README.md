@@ -75,6 +75,11 @@ npx skills add cofoundy/brand-skills -g        # install globally (user dir) ins
 Installs to your agent's skills dir (e.g. `.claude/skills/…`, `.cursor/…`). Try one without
 installing: `npx skills use cofoundy/brand-skills -s naming | claude`.
 
+**Light on context.** In Claude Code the agent only sees one skill, `brand` (~50 tokens per
+session); it routes to the other 16 when brand work comes up. They stay callable directly as
+`/naming`, `/brand-voice`, etc. A single skill installed with `-s` is reachable only that way, so
+install all of them if you want the agent to pick the right one on its own.
+
 ### B — Claude Code plugin
 
 ```bash
@@ -117,6 +122,7 @@ to confirm it landed.
 
 | Skill | What it does |
 |-------|--------------|
+| **brand** | The entry point. The only skill your agent sees; it routes each request to the right skill below. |
 | **brand-init** | Scaffolds a structured brand **package** (`brand.yaml` + folder) and registers it in a portfolio. The persistence layer every other skill reads/writes. |
 | **naming** | Metaphor-driven brand & product naming. 30–50 candidates → filtered → prior-art + availability checked → vetted finalists. Avoids AI slop. |
 | **brand-context** | Foundation. Captures the brand DNA every other skill reads first. |

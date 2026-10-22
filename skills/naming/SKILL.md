@@ -6,6 +6,7 @@ allowed-tools: Read, Grep, Glob, Bash(whois *), Bash(curl *), Bash(npm view *), 
 argument-hint: [describe what needs a name]
 metadata:
   version: 1.0.0
+disable-model-invocation: true
 ---
 
 # Naming Skill

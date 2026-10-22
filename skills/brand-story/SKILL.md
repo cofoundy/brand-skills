@@ -3,6 +3,7 @@ name: brand-story
 description: Craft a brand's origin story, founder narrative, and "why we exist" statement. Use when the user says "brand story", "origin story", "founder story", "why we exist", "about us", "our story", "company narrative", "brand narrative", "write our about page", "tell our story", "founding story", "brand history", or wants to articulate the deeper purpose and human story behind the brand. Also use when the About Us page feels generic or corporate and needs a rewrite.
 metadata:
   version: 1.0.0
+disable-model-invocation: true
 ---
 
 # Brand Story

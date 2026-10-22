@@ -3,6 +3,7 @@ name: brand-guidelines
 description: Create a comprehensive brand standards document — covering logo usage, color, typography, voice, messaging, and application rules. Use when the user says "brand guidelines", "brand standards", "brand book", "style guide", "brand guide", "brand manual", "brand rules", "brand documentation", "brand toolkit", "onboarding designers or copywriters", "need a document for the team", "brand consistency across teams", or wants to codify all brand decisions into a reusable reference document.
 metadata:
   version: 1.0.0
+disable-model-invocation: true
 ---
 
 # Brand Guidelines

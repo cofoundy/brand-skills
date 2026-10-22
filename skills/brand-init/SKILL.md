@@ -3,6 +3,7 @@ name: brand-init
 description: Initialize a structured, versioned brand package (and optionally register it in a brand portfolio). Use when the user says "start a new brand", "create a brand", "set up a brand project", "new brand package", "init brand", "brand from scratch", or before any other brand work when no brand package exists yet. Creates brand.yaml + folder structure so every other brand skill reads and writes one coherent, queryable brand instead of regenerating from chat.
 metadata:
   version: 1.0.0
+disable-model-invocation: true
 ---
 
 # Brand Init
