@@ -1,11 +1,11 @@
 ---
 name: naming
-description: Name products, SaaS, brands, open source projects, bots, and apps. Use when the user needs to name something, find a brand name, or pick a product name. Metaphor-driven process that produces memorable, meaningful names and avoids AI slop.
+description: Name products, SaaS, brands, open source projects, bots, and apps. Use when the user needs to name something, find a brand name, or pick a product name — or to validate a name that already exists (`validar <name> <industry> <country>`: trademark registry, domains, handles, homonyms). Metaphor-driven process that produces memorable, meaningful names and avoids AI slop.
 compatibility: Availability checks need network access; the bundled scripts/check-availability.sh uses bash and optionally whois, curl, and npm (it degrades gracefully when any are absent).
 allowed-tools: Read, Grep, Glob, Bash(whois *), Bash(curl *), Bash(npm view *), Bash(gh repo view *), WebSearch, WebFetch
-argument-hint: [describe what needs a name]
+argument-hint: "[describe what needs a name] | validar <name> <industry> <country>"
 metadata:
-  version: 1.0.0
+  version: 1.1.0
 disable-model-invocation: true
 ---
 
@@ -23,11 +23,34 @@ This skill walks through a structured naming process. You don't need to load eve
 > Do NOT load them all. Load each file only at the step that needs it.
 > A simple naming session (Steps 1-3-7) should load 2-3 files, not all 15.
 
+## Modes
+
+| Invocation | What it does | Load |
+| ---------- | ------------ | ---- |
+| `naming <what needs a name>` (default) | The full process below: brief → metaphors → candidates → availability → finalists | Steps 1–7 |
+| `validar <name> <industry> <country>` (alias `validate`) | Checks ONE name that already exists — no candidates, no metaphors, no interview. Runs the Step 5 gate plus the country's trademark registry (Nice classes of the industry), ccTLD domains, social handles and industry homonyms, and writes `validacion-nombre.md` with a verdict (**libre / riesgo / tomado**), evidence with URL and date per source, and what could not be verified | [validate-existing.md](validate-existing.md) only |
+
+In `validar` mode, skip everything below except Step 5's prior-art searches, which
+validate-existing.md runs for you. Example: `validar "Acme Radio" "podcast network" Peru`.
+
+## Brief already answered (no interview)
+
+If the caller passes — or the working directory holds — a product-intent document (for example
+`INTENCION-PRODUCTO.md`, `brief.yaml`, `brand.yaml`, a PRD, or a filled
+[templates/naming-brief.md](templates/naming-brief.md)), treat it as the answered brief:
+
+1. Read it and fill each of the 8 Step 1 questions from it, citing the line you took it from.
+2. Ask ONLY the questions it leaves open **and** that change the outcome; ask them together, once.
+3. No human in the loop (subagent, scheduled or autonomous run)? Do not ask at all: take the most
+   conservative reading, write it down as an **assumption** at the top of the deliverable, and go on.
+
+Never re-ask what the document already answers.
+
 ## The Process
 
 ### Step 1: Naming Brief
 
-Before generating ANY names, establish context. Ask the user:
+Before generating ANY names, establish context. If a brief document exists, fill these from it first (see *Brief already answered* above). Otherwise ask the user:
 
 1. **What does this thing do?** (One sentence)
 2. **Who is it for?** (Target audience)
@@ -218,6 +241,7 @@ Don't keep pushing weak names forward. Looping back to an earlier step produces 
 | [brand-architecture.md](brand-architecture.md) | When naming within a product family |
 | [language-rules.md](language-rules.md) | When using foreign words or non-English source languages |
 | [availability.md](availability.md) | When checking platform availability |
+| [validate-existing.md](validate-existing.md) | `validar` mode — checking ONE existing name: country trademark registry + Nice classes, ccTLDs, handles, homonyms, verdict template |
 | [case-studies.md](case-studies.md) | When studying real-world naming examples |
 | [evaluation.md](evaluation.md) | When scoring and comparing finalists |
 | [languages/INDEX.md](languages/INDEX.md) | When naming for a non-English audience — see index for available languages |

@@ -27,6 +27,7 @@ that package.
 | New brand, no `brand.yaml` yet | `brand-init` |
 | Capture or update brand DNA | `brand-context` |
 | Name a product, brand, app or bot | `naming` |
+| Check whether an existing name is free (trademark, domains, handles) | `naming` in `validar` mode |
 | Full strategy report (heart, archetype, values) | `brand-strategy` |
 | Standalone vs sub-brand vs house of brands | `brand-architecture` |
 | Competitive map and positioning statement | `brand-positioning` |

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # check-availability.sh — Quick availability check for a product name
 # Usage: bash check-availability.sh <name> [platforms...]
+# TLDS env var overrides the domain TLD list (default "com dev io"), e.g. TLDS="com pe com.pe".
 # Platforms: domain, npm, pypi, github, crates, rubygems, wp, telegram
 # If no platforms specified, checks domain + github + npm
 
@@ -30,13 +31,17 @@ echo "---"
 for platform in "${PLATFORMS[@]}"; do
   case "$platform" in
     domain)
-      for tld in com dev io; do
+      for tld in ${TLDS:-com dev io}; do
         if have whois; then
           result=$(whois "${NAME}.${tld}" 2>&1 || true)
           # Registration markers win FIRST. A registered domain's whois always carries
           # these fields; its boilerplate/TOS text often contains "available"/"not found"
           # in unrelated sentences — matching those first caused false "AVAILABLE" hits.
-          if echo "$result" | grep -qiE "^[[:space:]]*(Domain Name|Creation Date|Created On|Created|Registry Expiry|Registrar|Name Server|nserver|Updated Date):"; then
+          # Exception: some ccTLD registries (NIC.pe for .pe/.com.pe) echo "Domain Name:" back
+          # even for an unregistered name and put the verdict in a status line instead.
+          if echo "$result" | grep -qiE "^[[:space:]]*Domain Status:[[:space:]]*(No Object Found|free|available)"; then
+            ok "${NAME}.${tld}"
+          elif echo "$result" | grep -qiE "^[[:space:]]*(Domain Name|Creation Date|Created On|Created|Registry Expiry|Registrar|Name Server|nserver|Updated Date):"; then
             taken "${NAME}.${tld}"
           elif echo "$result" | grep -qiE "no match|not found|no object found|no data found|not been registered|no entries|status: *free|available for registration|domain not found"; then
             ok "${NAME}.${tld}"

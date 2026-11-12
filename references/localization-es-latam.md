@@ -53,4 +53,6 @@ English can be unusable in Spanish (and vice versa).
 Public availability checks (whois/npm/GitHub) are necessary but **not** a trademark clearance. For
 LATAM commercial use, a name must also clear the national IP registry (e.g. **INDECOPI** in Peru).
 Brand Skills does not file marks; treat registry clearance as a separate step before committing a name to
-market.
+market. To screen a name that already exists against the registry (INDECOPI and other LatAm offices,
+with the WIPO Global Brand Database as fallback), run `naming` in `validar` mode —
+[skills/naming/validate-existing.md](../skills/naming/validate-existing.md).
