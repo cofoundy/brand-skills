@@ -25,6 +25,19 @@ for dir in skills/*/; do
   elif ! grep -qF "\`$name\`" skills/brand/SKILL.md; then
     echo "  ✗ $name: not listed in the skills/brand routing table"; fail=1; skill_ok=0
   fi
+  # The frontmatter must be valid YAML: installers (npx skills) silently SKIP a skill whose
+  # frontmatter fails to parse — e.g. an unquoted description containing ": ".
+  if ! python3 - "$f" <<'PY'
+import sys, yaml
+text = open(sys.argv[1], encoding="utf-8").read()
+parts = text.split("---", 2)
+try:
+    data = yaml.safe_load(parts[1]) if len(parts) == 3 and not parts[0].strip() else None
+except yaml.YAMLError as exc:
+    print(f"    {str(exc).splitlines()[0]}"); sys.exit(1)
+sys.exit(0 if isinstance(data, dict) else 1)
+PY
+  then echo "  ✗ $name: frontmatter is not valid YAML (quote values containing ': ')"; fail=1; skill_ok=0; fi
   [[ $skill_ok -eq 1 ]] && echo "  ✓ $name"
 done
 
