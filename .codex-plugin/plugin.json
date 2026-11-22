@@ -1,0 +1,19 @@
+{
+  "name": "brand-skills",
+  "version": "0.4.1",
+  "description": "Cofoundy workflows for naming, brand strategy, positioning, identity, voice, and brand guidelines.",
+  "author": {
+    "name": "Cofoundy SAC",
+    "url": "https://cofoundy.dev"
+  },
+  "homepage": "https://github.com/cofoundy/brand-skills",
+  "repository": "https://github.com/cofoundy/brand-skills",
+  "license": "MIT",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Brand Skills",
+    "shortDescription": "Naming, positioning, and brand identity",
+    "developerName": "Cofoundy SAC",
+    "category": "Productivity"
+  }
+}

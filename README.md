@@ -87,7 +87,21 @@ install all of them if you want the agent to pick the right one on its own.
 /plugin install brand-skills@brand-skills
 ```
 
-### C — Local (before/without a remote)
+### C — Codex plugin
+
+Add the marketplace and install the plugin with the Codex CLI:
+
+```bash
+codex plugin marketplace add cofoundy/brand-skills
+codex plugin add brand-skills@brand-skills
+```
+
+After adding the marketplace, you can also install **Brand Skills** from the marketplace in the
+desktop Plugins Directory. Start a new Codex session and choose `brand-skills:brand` from the skill
+picker to route a task, or invoke a specialist such as `$brand-skills:naming` directly.
+The `brand-mod` skill creates spinner artifacts for Claude Code; it does not change the Codex interface.
+
+### D — Local (before/without a remote)
 
 ```bash
 npx skills add ./path/to/brand-skills          # or:
