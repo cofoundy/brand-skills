@@ -16,7 +16,7 @@ someone else's product repo unless told to.
 | ----- | -------- | ------------------- |
 | `name` | yes | The exact spelling as used in market (keep articles: "El X" is checked as "El X" AND "X") |
 | `industry` | yes | Free text ("podcast / digital media platform"). You map it to Nice classes below |
-| `country` | yes | ISO country or name. Drives registry, ccTLD and handle priorities |
+| `country` | yes | ISO country or name, **or a comma list** (`PE,US,EU`) when the business sells or raises money in several markets. Drives registry, ccTLD and handle priorities. With a list, run §2 once per country and give one verdict per country plus the worst one as the headline |
 | Brief doc | no | A product-intent doc (`INTENCION-PRODUCTO.md`, `brief.yaml`, a filled `templates/naming-brief.md`) — read it for platforms that matter and what the product does; do not ask what it already answers |
 
 If the industry is too vague to pick Nice classes, pick the 2–4 most likely ones, say which you
@@ -60,7 +60,8 @@ Build the search set before searching:
    brand name → strategy *Embedded* for the exact term (and *Phonetic* for the twin) → Filters →
    IP office / designation **(PE)** → Nice classes from the table. Switch layout to *List* if
    rows seem missing (the default view virtualizes long lists). Record every row: mark, owner,
-   class, status (registered / pending / expired), number.
+   class, status (registered / pending / expired), number. Recipe and gotchas: «WIPO GBD by URL»
+   below.
 3. The formal **búsqueda de antecedentes** (paid, per class, via INDECOPI's online services) is
    the legal answer. This mode does not replace it: say so in the report when the verdict will
    be used to commit money to the name.
@@ -76,7 +77,37 @@ Build the search set before searching:
 | Brazil | INPI | `https://busca.inpi.gov.br/pePI/` |
 | Other / unsure | — | WIPO GBD filtered by the office code |
 
+**United States and Europe** (check them whenever the business sells there, raises money from
+there, or a same-name company there is the worry):
+
+| Market | Registry | Public search |
+| ------ | -------- | ------------- |
+| United States | USPTO | `https://tmsearch.uspto.gov/search/search-results` (keyword; status LIVE/DEAD, class, owner, serial) |
+| European Union | EUIPO | `https://www.tmdn.org/tmview/` (TMview also carries most EU national offices) |
+| International (Madrid) | WIPO | WIPO GBD, office `WO` |
+
+A US/EU mark only matters to a LatAm business if it sells or raises there; say which applies.
 These were not all exercised by this skill's authors; if one fails, report it as not verified.
+
+**WIPO GBD by URL** (measured 2026-11-23, when BuscaTuMarca and the official INDECOPI hosts were
+unreachable from both a headless agent browser and the founder's own Chrome):
+- A search is a URL, so build it instead of clicking:
+  `https://branddb.wipo.int/en/similarname/results?sort=score%20desc&start=0&rows=100&asStructure=`
+  + the URL-encoded JSON
+  `{"boolean":"AND","bricks":[{"key":"brandName","value":"<name>","strategy":"Fuzzy"},{"key":"office","value":["PE"]}]}`.
+  `strategy`: `Simple` (contains the exact word), `Fuzzy` (spelled alike: the useful default for
+  twins like Tracta/Atracta), `Phonetic` (sounds alike; without an office filter it returns tens
+  of thousands of rows). Office codes: `PE`, `US`, `EM` (EUIPO), `WO`, `MX`, `CO`, `CL`, `BR`…
+- Do NOT add a Nice-class brick to the URL: it left the page on «Processing» indefinitely. Filter
+  the class while reading the rows instead.
+- The first load of a results URL sometimes stays on «Processing» and drops the query string;
+  navigating to the same URL again works.
+- The list is virtualized: `innerText` only holds the rows on screen. Scroll in steps and collect
+  (title line before `Owner`, the owner, the class 3 lines below, the line after `Status`); keep
+  each pass under ~20 s or the browser tool times out. Report «read N of M rows»: a row you never
+  rendered is not a row you cleared.
+- The GBD can lag behind the national office. A clean GBD result caps the verdict at **riesgo**
+  (verdict rules below) until the official search or a lawyer confirms it.
 
 **Reading results:**
 - Same or confusingly similar mark, **registered or pending**, in a class the business uses → **tomado** (or **riesgo** if only similar, not identical).
