@@ -95,17 +95,30 @@ unreachable from both a headless agent browser and the founder's own Chrome):
   `https://branddb.wipo.int/en/similarname/results?sort=score%20desc&start=0&rows=100&asStructure=`
   + the URL-encoded JSON
   `{"boolean":"AND","bricks":[{"key":"brandName","value":"<name>","strategy":"Fuzzy"},{"key":"office","value":["PE"]}]}`.
-  `strategy`: `Simple` (contains the exact word), `Fuzzy` (spelled alike: the useful default for
-  twins like Tracta/Atracta), `Phonetic` (sounds alike; without an office filter it returns tens
-  of thousands of rows). Office codes: `PE`, `US`, `EM` (EUIPO), `WO`, `MX`, `CO`, `CL`, `BR`…
+  `strategy`: `Simple` (contains the exact word), `Embedded` (the term inside a longer word),
+  `Fuzzy` (spelled alike: the useful default for twins like Tracta/Atracta), `Phonetic` (sounds
+  alike; without an office filter it returns tens of thousands of rows). A multi-word `Simple`
+  value matches ANY of the words (`co foundy` → 200k rows): search the joined spelling. Office
+  codes: `PE`, `US`, `EM` (EUIPO), `WO`, `MX`, `CO`, `CL`, `BR`… **Owner search**:
+  `{"key":"applicant","value":"<owner>","strategy":"Simple"}` — run it for the business itself
+  to learn whether it already filed anything.
 - Do NOT add a Nice-class brick to the URL: it left the page on «Processing» indefinitely. Filter
   the class while reading the rows instead.
-- The first load of a results URL sometimes stays on «Processing» and drops the query string;
-  navigating to the same URL again works.
+- The first load of a results URL sometimes stays on «Processing» and drops the query string,
+  or shows the rows of an EARLIER search (another country's marks), or falls back to the edit
+  form. Navigating to the same URL again works. **Before reading rows, confirm the header
+  «Brand name: … '<term>'» and «IP office: …» match what you searched.**
 - The list is virtualized: `innerText` only holds the rows on screen. Scroll in steps and collect
-  (title line before `Owner`, the owner, the class 3 lines below, the line after `Status`); keep
+  anchored on the `Number` line, not `Owner` (logo-only rows have no owner line: anchoring on
+  `Owner` read 25 of 27); rows with long designated-country lists still drop some, so keep
   each pass under ~20 s or the browser tool times out. Report «read N of M rows»: a row you never
   rendered is not a row you cleared.
+- **USPTO** (`tmsearch.uspto.gov`): the URL does not carry the query — type it in the search box;
+  `*` is not a wildcard.
+- **EUIPO**: TMview did not load in a headless agent browser (spinner forever), and eSearch by
+  `#basic/...` URL returned 0 even for a mark that exists. **A zero counts only after a positive
+  control**: search a mark you know is registered in that office first; if it also returns 0, the
+  source is «no verificado», not «limpio».
 - The GBD can lag behind the national office. A clean GBD result caps the verdict at **riesgo**
   (verdict rules below) until the official search or a lawyer confirms it.
 
@@ -129,6 +142,10 @@ read the status line.
 
 ### 4. Social handles (priority by industry and country)
 
+**Start with the business's own handles** — they may not match the name (`@co.foundy`,
+`@cofoundyia`): ask the brief or the site footer, or you will report your own account as a third
+party's (or a third party's as yours).
+
 For media and consumer brands in LatAm: Instagram, TikTok, YouTube, X, Facebook, Spotify/Apple
 Podcasts (shows with the name). A plain HTTP status is NOT evidence for most networks — they
 return 200 for everything or block bots. What actually worked when this mode was built:
@@ -136,8 +153,8 @@ return 200 for everything or block bots. What actually worked when this mode was
 | Network | Reliable probe | Unreliable |
 | ------- | -------------- | ---------- |
 | YouTube | `curl` → 404 on `youtube.com/@handle` = free | — |
-| TikTok | Browser (agent-browser / Playwright): the profile page shows handle, followers, bio when taken | `curl` status (always 200) |
-| Instagram | Browser while logged in | Logged-out browser shows "Profile isn't available" for both free and some existing profiles → **unclear** |
+| TikTok | Browser (agent-browser / Playwright): the profile page shows handle, followers, bio when taken — wait ~10 s (at 5 s it showed a generic title) | `curl` status (always 200) |
+| Instagram | Browser; logged out it sometimes shows the profile with bio and followers (2026-11-23) — that counts as taken | Logged-out «Profile isn't available» happens for both free and some existing profiles → **unclear** |
 | X | Browser while logged in | `curl` and logged-out browser get 403/404 inconsistently → **unclear** |
 | Telegram | `t.me/handle` page with a `tgme_page_title` element = taken | `og:title` is "Contact @handle" either way |
 | Apple Podcasts | `podcasts.apple.com/<cc>/search?term=<name>` in a browser | — |
@@ -176,15 +193,19 @@ verify goes in its own section, never silently into "libre".
 ```markdown
 # Validación de nombre: <Nombre>
 
-- Rubro: <rubro> · País: <país> · Clases Niza revisadas: <n, n, n> (por qué)
+- Rubro: <rubro> · País(es): <país, …> · Clases Niza revisadas: <n, n, n> (por qué)
 - Fecha de verificación: <YYYY-MM-DD>
 - Brief usado: <ruta o "ninguno">
 
-## Veredicto: <libre | riesgo | tomado>
+## Veredicto: <libre | riesgo | tomado> (el peor de los países)
 <2–3 líneas: el porqué, con la evidencia que lo decide.>
 
+| País | Veredicto | Lo que lo decide |
+| ---- | --------- | ---------------- |
+| <PE> | ... | ... |
+
 ## Evidencia por fuente
-| Fuente | Qué se buscó | Resultado | URL / comando | Fecha |
+| Fuente | Qué se buscó | Resultado (leí N de M filas) | URL / comando | Fecha |
 | ------ | ------------ | --------- | ------------- | ----- |
 | Registro de marcas (oficial) | ... | ... | ... | ... |
 | Registro de marcas (respaldo WIPO GBD) | ... | ... | ... | ... |

@@ -34,6 +34,13 @@ for platform in "${PLATFORMS[@]}"; do
       for tld in ${TLDS:-com dev io}; do
         if have whois; then
           result=$(whois "${NAME}.${tld}" 2>&1 || true)
+          # macOS whois can answer with IANA's block for the TLD itself (its `created:` and
+          # `nserver:` lines describe the TLD, not the name) — that made free .io/.co/.eu read
+          # TAKEN (2026-11-23). Ask the registry named in `refer:` and judge only its answer.
+          refer=$(echo "$result" | awk -F': *' 'tolower($1)=="refer"{print $2; exit}')
+          if [ -n "$refer" ]; then
+            result=$(whois -h "$refer" "${NAME}.${tld}" 2>&1 || true)
+          fi
           # Registration markers win FIRST. A registered domain's whois always carries
           # these fields; its boilerplate/TOS text often contains "available"/"not found"
           # in unrelated sentences — matching those first caused false "AVAILABLE" hits.
