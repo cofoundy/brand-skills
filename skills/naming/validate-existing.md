@@ -50,7 +50,8 @@ Build the search set before searching:
 | Health / wellness | 44, 5, 10 |
 
 **Peru — INDECOPI.**
-1. Official free search: **BuscaTuMarca** — `https://enlinea.indecopi.gob.pe/buscatumarca/`
+1. Official free search: **BuscaTuMarca** — `https://pi.indecopi.gob.pe/buscatumarca/` (the old
+   `enlinea.indecopi.gob.pe/buscatumarca/` 301-redirects there since 2026-11)
    (no login). Search the name and its variants, note results in the chosen classes.
    *Known limit:* its firewall can block automated/datacenter clients ("Web Page Blocked!" page or
    connection closed). If blocked, record it as **not verified** with the date and the error, and
@@ -75,7 +76,8 @@ Build the search set before searching:
 | Chile | INAPI | `https://www.inapi.cl/` (búsqueda de marcas) |
 | Argentina | INPI | `https://portaltramites.inpi.gob.ar/` |
 | Brazil | INPI | `https://busca.inpi.gov.br/pePI/` |
-| Other / unsure | — | WIPO GBD filtered by the office code |
+| El Salvador | CNR | `https://www.e.cnr.gob.sv/` (behind Incapsula: blocked for agent browsers) — **WIPO GBD has NO SV data** (office SV returns «No results found» even for «pollo»): never read that zero as clean |
+| Other / unsure | — | WIPO GBD filtered by the office code — first check the office has data (search a common word); no data = «no verificado» |
 
 **United States and Europe** (check them whenever the business sells there, raises money from
 there, or a same-name company there is the worry):
@@ -96,7 +98,9 @@ unreachable from both a headless agent browser and the founder's own Chrome):
   + the URL-encoded JSON
   `{"boolean":"AND","bricks":[{"key":"brandName","value":"<name>","strategy":"Fuzzy"},{"key":"office","value":["PE"]}]}`.
   `strategy`: `Simple` (contains the exact word), `Embedded` (the term inside a longer word),
-  `Fuzzy` (spelled alike: the useful default for twins like Tracta/Atracta), `Phonetic` (sounds
+  `Fuzzy` (spelled alike, for twins like Tracta/Atracta — but it does NOT return the identical
+  mark: «tracta» Fuzzy in EM gave 86 rows without the 4 TRACTA that `Simple` returns, so **always
+  run `Simple` AND `Fuzzy`** and merge), `Phonetic` (sounds
   alike; without an office filter it returns tens of thousands of rows). A multi-word `Simple`
   value matches ANY of the words (`co foundy` → 200k rows): search the joined spelling. Office
   codes: `PE`, `US`, `EM` (EUIPO), `WO`, `MX`, `CO`, `CL`, `BR`… **Owner search**:
@@ -108,11 +112,11 @@ unreachable from both a headless agent browser and the founder's own Chrome):
   or shows the rows of an EARLIER search (another country's marks), or falls back to the edit
   form. Navigating to the same URL again works. **Before reading rows, confirm the header
   «Brand name: … '<term>'» and «IP office: …» match what you searched.**
-- The list is virtualized: `innerText` only holds the rows on screen. Scroll in steps and collect
-  anchored on the `Number` line, not `Owner` (logo-only rows have no owner line: anchoring on
-  `Owner` read 25 of 27); rows with long designated-country lists still drop some, so keep
-  each pass under ~20 s or the browser tool times out. Report «read N of M rows»: a row you never
-  rendered is not a row you cleared.
+- All result rows are in the DOM, but their content renders lazily, so `innerText` misses rows.
+  Read each row's fields instead (`.brandName`, `.owner .value`, `.class .value`,
+  `.status .value`; logo-only rows have no brand text): that read 52 of 52 where scrolling
+  `innerText` read 46. Keep each script under ~20 s or the browser tool times out. Report
+  «read N of M rows»: a row you never read is not a row you cleared.
 - **USPTO** (`tmsearch.uspto.gov`): the URL does not carry the query — type it in the search box;
   `*` is not a wildcard.
 - **EUIPO**: TMview did not load in a headless agent browser (spinner forever), and eSearch by

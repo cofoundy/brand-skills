@@ -41,6 +41,16 @@ for platform in "${PLATFORMS[@]}"; do
           if [ -n "$refer" ]; then
             result=$(whois -h "$refer" "${NAME}.${tld}" 2>&1 || true)
           fi
+          # Some TLDs (.app, other Google/new gTLDs) have no `refer:` in IANA's answer, so whois
+          # stays on the TLD's own block and reads TAKEN. Ask RDAP instead: 404 = free.
+          if echo "$result" | grep -qi "IANA WHOIS server"; then
+            rc=$(curl -sL -o /dev/null -m 15 -w "%{http_code}" "https://rdap.org/domain/${NAME}.${tld}" || echo 000)
+            case "$rc" in
+              404) ok "${NAME}.${tld} (RDAP 404)"; continue ;;
+              200) taken "${NAME}.${tld} (RDAP)"; continue ;;
+              *) warn "${NAME}.${tld} (no whois referral, RDAP ${rc} — verify at registrar)"; continue ;;
+            esac
+          fi
           # Registration markers win FIRST. A registered domain's whois always carries
           # these fields; its boilerplate/TOS text often contains "available"/"not found"
           # in unrelated sentences — matching those first caused false "AVAILABLE" hits.
