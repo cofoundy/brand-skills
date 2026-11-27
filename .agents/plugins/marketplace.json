@@ -1,0 +1,20 @@
+{
+  "name": "brand-skills",
+  "interface": {
+    "displayName": "Cofoundy Brand Skills"
+  },
+  "plugins": [
+    {
+      "name": "brand-skills",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
